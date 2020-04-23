@@ -1,0 +1,80 @@
+<div class="row">
+    <div class="col-10">
+        <h3 id="titulo">Generacion de Ordenes de Venta</h3>
+    </div>
+    <div class="col-2">
+        <h4>Folio: {{folio}}</h4>
+    </div>
+</div>
+<br>
+<div class="main-content">
+    <div class="container"><button matSuffix mat-raised-button color="primary" [hidden]='cargando'
+            (click)="irLista()">Lista Ordenes
+            Pendientes</button></div>
+    <br>
+    <div class='cargando' [hidden]='!cargando'>
+        <p>Realizando Acciones...</p>
+        <img src="../../../assets/img/loading_steel.gif" />
+    </div>
+    <form>
+        <div class="container">
+            <div class="row">
+                <div class="col-8">
+                    <app-busqueda-cliente [hidden]='cargando' (cliente)="obtenerCliente($event)"
+                        [clienteSeleccionado]="cliente.nombre"></app-busqueda-cliente>
+                </div>
+                <div class="col-4">
+                    <app-busqueda-embarcar [hidden]='cargando' [embarcarSeleccionado]="embarcar.descripcion"
+                        [_cliente]="cliente" (embarcar)="obtenerEmbarcar($event)">
+                    </app-busqueda-embarcar>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-4" [hidden]='cargando'>
+                    <mat-form-field>
+                        <mat-label>Tipo de Venta</mat-label>
+                        <select matNativeControl required [(ngModel)]="tipoVenta" name="tipoVenta" [disabled]="generar">
+                            <option value="directa">Venta Directa</option>
+                            <option value="consignacion">Consignacion</option>
+                        </select>
+                    </mat-form-field>
+                </div>
+                <div class="col-1" [hidden]='cargando'>
+                    <mat-form-field class="inputAlmacen">
+                        <input matInput required [(ngModel)]="almacen" placeholder="Almacen" name="almacen" [disabled]="generar">
+                    </mat-form-field>
+                </div>
+                <div class="col-7">
+                    <button [hidden]='cargando' matSuffix mat-raised-button color="primary" [disabled]="generar"
+                        (click)='validaciones()'>GENERAR</button>&nbsp;
+                    <button [hidden]='cargando' matSuffix mat-raised-button color="primary" [disabled]="!generar || terminado"
+                        (click)="validarOVs()">VALIDAR</button>&nbsp;
+                    <button [hidden]='cargando' matSuffix mat-raised-button color="primary" [disabled]="!generar || terminado"
+                        (click)="revisarFolio()">GUARDAR</button>&nbsp;
+                    <button [hidden]='cargando' matSuffix mat-raised-button color="primary" [disabled]="!validado || terminado"
+                        (click)="generarOV()">{{buttonText}}</button>&nbsp;
+                    <button [hidden]='cargando' matSuffix mat-raised-button color="primary" [disabled]="!generar"
+                        (click)='limpiar()'>LIMPIAR</button>
+                </div>
+            </div>
+        </div>
+    </form>
+
+    <div class="container-fluid">
+        <app-gridpartes [hidden]='cargando' *ngIf="generar" [fechaInicio]="fdfw" [fechaFin]="ldfw" [cliente]="cliente"
+            [embarcar]="embarcar" [tipoVenta]="tipoVenta" [instancia]="1" (_orden)="semana1($event)" [orden]="orden1" [semana]="1" [folio]="folio" [aprobada]="aprobada">
+        </app-gridpartes><br>
+        <app-gridpartes [hidden]='cargando' *ngIf="generar" [fechaInicio]="fdsw" [fechaFin]="ldsw" [cliente]="cliente"
+            [embarcar]="embarcar" [tipoVenta]="tipoVenta" [instancia]="2" (_orden)="semana2($event)" [orden]="orden2" [semana]="2" [folio]="folio" [aprobada]="aprobada">
+        </app-gridpartes><br>
+        <app-gridpartes [hidden]='cargando' *ngIf="generar" [fechaInicio]="fdtw" [fechaFin]="ldtw" [cliente]="cliente"
+            [embarcar]="embarcar" [tipoVenta]="tipoVenta" [instancia]="3" (_orden)="semana3($event)" [orden]="orden3" [semana]="3" [folio]="folio" [aprobada]="aprobada">
+        </app-gridpartes><br>
+        <app-gridpartes [hidden]='cargando' *ngIf="generar" [fechaInicio]="fdlw" [fechaFin]="ldlw" [cliente]="cliente"
+            [embarcar]="embarcar" [tipoVenta]="tipoVenta" [instancia]="4" (_orden)="semana4($event)" [orden]="orden4" [semana]="4" [folio]="folio" [aprobada]="aprobada">
+        </app-gridpartes><br>
+        <app-gridpartes-discreta [hidden]='cargando' *ngIf="generar" [fechaInicio]="fdew" [fechaFin]="ldew" [cliente]="cliente"
+            [embarcar]="embarcar" [tipoVenta]="tipoVenta" [instancia]="5" (_orden)="semana5($event)" [orden]="orden5" [semana]="5" [folio]="folio" [aprobada]="aprobada">
+        </app-gridpartes-discreta><br>
+    </div>
+</div>

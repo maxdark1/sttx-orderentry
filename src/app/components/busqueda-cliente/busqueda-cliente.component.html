@@ -1,0 +1,53 @@
+
+<form class="busquedaCliente">
+    <mat-form-field class="inputCliente">
+        <input [(ngModel)]="clienteSeleccionado" matInput placeholder="Seleccione un cliente" name="cliente" disabled>
+        <button matSuffix mat-raised-button color="primary" data-toggle="modal" data-target="#frmcliente">BUSCAR</button>
+      </mat-form-field>
+</form>
+
+  <div id="frmcliente" class="modal fade" role="dialog">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title" id="frmbusqueda"></h4>
+            </div>
+            <div class="modal-body">
+                <input type="hidden" id="idmenu" value="">
+                <form class="form-horizontal">
+                    <div class="box-body">
+                        <div class="form-group" id="formularionuevosubmenu">
+                            <label><b>Buscar:</b></label>
+                            <input class="form-control" placeholder="Escribe aqui lo que desees Buscar" id="txtBuscaCliente" type="text" name="txtBuscaCliente" (keyup)="filtrar($event)" 
+                            [(ngModel)]="filtro"/>
+                            <div id="gridcliente">
+                                <kendo-grid 
+                                [data]="vistaGrid" 
+                                [height]="400"
+                                [pageable]="true"
+                                [pageSize]="pageSize"
+                                [skip]="skip"
+                                [filter]="state.filter"
+                                (pageChange)="pageChange($event)"
+                                >
+                                    <kendo-grid-column field="cliente" title="Codigo" width="80">
+                                    </kendo-grid-column>
+                                    <kendo-grid-column field="nombre" title="Nombre">
+                                    </kendo-grid-column>
+                                    <kendo-grid-command-column title="Acciones" width="110">
+                                        <ng-template kendoGridCellTemplate let-dataItem>
+                                            <button class="k-primary" (click)="seleccionarCliente(dataItem)" data-dismiss="modal">Seleccionar</button>
+                                        </ng-template>
+                                    </kendo-grid-command-column>
+                                </kendo-grid>    
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+            </div>
+        </div>
+    </div>
+</div>

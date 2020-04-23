@@ -1,0 +1,50 @@
+<h3 id="titulo">Desactivar Notificaciones</h3>
+<div class="main-content">
+    <br>
+    <div class="container">
+        <div class="row">
+            <div class="col-8">
+                <app-busqueda-cliente (cliente)="obtenerCliente($event)"
+                    [clienteSeleccionado]="cliente.nombre"></app-busqueda-cliente>
+            </div>
+            <div class="col-4">
+                <app-busqueda-embarcar  [embarcarSeleccionado]="embarcar.descripcion"
+                    [_cliente]="cliente" (embarcar)="obtenerEmbarcar($event)">
+                </app-busqueda-embarcar>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-8">
+                <div class="form-group">
+                    <label><b>Buscar:</b></label>
+                    <input class="form-control" placeholder="Escribe aqui lo que desees Buscar" type="text" name="txtBuscaParte" (keyup)="filtrar()" 
+                    [(ngModel)]="filtro"/>
+                </div>
+            </div>
+            <div class="col-4">
+                <button matSuffix mat-raised-button color="primary" [disabled]="!visible" (click)="marcarTodo()">Activar Todo</button>&nbsp;
+                <button matSuffix mat-raised-button color="primary" [disabled]="!visible" (click)="desmarcarTodo()">Desactivar Todo</button>
+            </div>
+            <kendo-grid 
+                        [data]="gridData" 
+                        [height]="500"
+                        [selectable]="{enabled: true, checkboxOnly: true}"
+                        [kendoGridSelectBy]="'codigo_int'"
+                        >
+                            <kendo-grid-column field="codigo_int" title="Codigo" width="120">
+                            </kendo-grid-column>
+                            <kendo-grid-column field="codigo_cliente" title="Descripcion" width="120">
+                            </kendo-grid-column>
+                            <kendo-grid-column field="activo" title="Desactivar Aprobaciones" width="120">
+                                <ng-template kendoGridCellTemplate let-dataItem>
+                                    <input type="checkbox" [(ngModel)]="dataItem.activo" />
+                                </ng-template>
+                            </kendo-grid-column>
+                        </kendo-grid>  
+        </div>
+    </div>
+    <br>
+    <div class="row">
+        <button style="margin-left: 1100px;" matSuffix mat-raised-button color="primary" (click)="guardar()">Guardar</button>
+    </div>
+</div>

@@ -1,0 +1,49 @@
+<app-busqueda-parte [cliente]="cliente" [embarcar]="embarcar" [tipoVenta]="tipoVenta" [instancia]="instancia"
+  (parte)="obtenerParte($event)" [aprobada]="aprobada"></app-busqueda-parte>
+Semana del {{ fechaInicio.getDate() + "/" +  (fechaInicio.getMonth()+1) + "/" + fechaInicio.getFullYear() }} al
+{{ fechaFin.getDate() + "/" +  (fechaFin.getMonth()+1) + "/" + fechaFin.getFullYear() }} <br>
+<b>Cliente:&nbsp;</b>{{cliente.nombre}}&nbsp;<b>Embarcar:&nbsp;</b>{{embarcar.descripcion}}
+<kendo-grid [data]="orden" [height]="250" [rowClass]="rowCallback" (cellClick)="cellClickHandler($event)" (cellClose)="cellCloseHandler($event)">
+  <kendo-grid-column field="parte.codigo_int" title="Parte" width="100">
+  </kendo-grid-column>
+  <kendo-grid-column field="cantidad" title="Cantidad" width="90">
+      <ng-template kendoGridCellTemplate let-dataItem>
+          {{ dataItem.cantidad | thousandsPipe }}
+      </ng-template>
+  </kendo-grid-column>
+  <kendo-grid-column field="parte.um_facturacion" title="UM" width="50">
+  </kendo-grid-column>
+  <kendo-grid-column field="fechaSolicitada" title="Fecha Solicitada" width="140" format="dd/MM/yyyy">
+  </kendo-grid-column>
+  <kendo-grid-column field="fechaEmbarque" title="Fecha Embarque" width="140" format="dd/MM/yyyy">
+  </kendo-grid-column>
+  <kendo-grid-column field="fechaPromesa" title="Fecha Promesa" width="140" format="dd/MM/yyyy" >
+  </kendo-grid-column>
+  <kendo-grid-column field="oc_cliente" title="OC Cliente" width="200" >
+  </kendo-grid-column>
+  <kendo-grid-column field="comentario1" title="Comentario 1" width="200" >
+  </kendo-grid-column>
+  <kendo-grid-column field="comentario2" title="Comentario 2" width="200" >
+  </kendo-grid-column>
+  <kendo-grid-column field="comentario3" title="Comentario 3" width="200">
+  </kendo-grid-column>
+  <kendo-grid-column field="comentario4" title="Comentario 4" width="200" >
+  </kendo-grid-column>
+  <kendo-grid-column field="comentario5" title="Comentario 5" width="200" >
+  </kendo-grid-column>
+  <kendo-grid-column field="ov" title="Orden" width="80" >
+  </kendo-grid-column>
+  <kendo-grid-column field="linea" title="Linea" width="80" >
+  </kendo-grid-column>
+  <kendo-grid-column field="errorcode" title="Codigo Error" width="200" >
+  </kendo-grid-column>
+  <kendo-grid-column field="errordescripcion" title="Descripcion Error" width="200" >
+  </kendo-grid-column>
+  <kendo-grid-command-column title="Acciones" width="110">
+    <ng-template kendoGridCellTemplate let-rowIndex="rowIndex" let-dataItem>
+        <button class="k-primary" (click)="Eliminar(rowIndex,dataItem)"
+            data-dismiss="modal">Eliminar</button>
+    </ng-template>
+</kendo-grid-command-column>
+</kendo-grid>
+<br>

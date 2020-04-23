@@ -1,0 +1,59 @@
+<h3 id="titulo">Preordenes Pendientes</h3>
+<div class="main-content">
+
+        <div class='cargando' [hidden]='!cargando'>
+                <p>Realizando Acciones...</p>
+                <img src="../../../assets/img/loading_steel.gif" />
+        </div>
+
+    <form class="NuevaPreorden">
+        <button matSuffix mat-raised-button color="primary" data-toggle="modal" (click)="irNueva()">Nueva Preorden</button>
+    </form> 
+
+    <p [hidden]='cargando'><b>Ordenes de Venta Pendientes:</b></p>
+    <kendo-grid [data]="pendientes" [selectable]="true" [rowClass]="rowCallback" [rowSelected]="isRowSelected" [hidden]='cargando'>
+        <kendo-grid-column field="folio" title="Folio" width="70">
+        </kendo-grid-column>
+        <kendo-grid-column field="cliente" title="Cliente" width="80">
+        </kendo-grid-column>
+        <kendo-grid-column field="cliente_descripcion" title="Cliente" width="250">
+        </kendo-grid-column>
+        <kendo-grid-column field="embarcar" title="Embarcar A" width="100">
+        </kendo-grid-column>
+        <kendo-grid-column field="almacen" title="Almacen" width="80">
+        </kendo-grid-column>
+        <kendo-grid-column field="fecha" title="Fecha" width="90" format="dd/MM/yyyy">
+        </kendo-grid-column>
+        <kendo-grid-column field="tipoVenta" title="Tipo de Venta" width="90">
+        </kendo-grid-column>
+        <kendo-grid-column field="status" title="Estado" width="150">
+        </kendo-grid-column>
+        <kendo-grid-command-column title="Acciones" width="100">
+            <ng-template kendoGridCellTemplate let-dataItem>
+                <button class="k-primary" (click)="seleccionarPreorden(dataItem)"
+                    data-dismiss="modal" [disabled]="dataItem.aprobada == 1" >Seleccionar</button>
+            </ng-template>
+        </kendo-grid-command-column>
+    </kendo-grid>
+    <br>
+    <p [hidden]='cargando'><b>Ordenes de Venta No Aprobadas:</b></p>
+    <kendo-grid [data]="noaprobados"  [hidden]='cargando'>
+        <kendo-grid-column field="folio" title="Folio" width="70">
+        </kendo-grid-column>
+        <kendo-grid-column field="cliente" title="Cliente" width="100">
+        </kendo-grid-column>
+        <kendo-grid-column field="embarcar" title="Embarcar a" width="90">
+        </kendo-grid-column>
+        <kendo-grid-column field="almacen" title="Almacen" width="90">
+        </kendo-grid-column>
+        <kendo-grid-column field="fecha" title="Fecha" width="80" format="dd/MM/yyyy">
+        </kendo-grid-column>
+        <kendo-grid-column field="tipo_venta" title="Tipo Venta" width="90" format="dd/MM/yyyy">
+        </kendo-grid-column>
+        <kendo-grid-column field="usuario_aprobador" title="Rechazo" width="90">
+        </kendo-grid-column>
+        <kendo-grid-column field="causa_desc" title="Causa" width="200">
+        </kendo-grid-column>
+    </kendo-grid>
+
+</div>

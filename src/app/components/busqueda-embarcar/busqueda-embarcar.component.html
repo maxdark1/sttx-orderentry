@@ -1,0 +1,48 @@
+<form class="busquedaEmbarcar">
+  <mat-form-field class="inputCliente">
+      <input [(ngModel)]="embarcarSeleccionado" matInput placeholder="Seleccione un embarcar a" name="embarcar" disabled>
+      <button matSuffix mat-raised-button color="primary" data-toggle="modal" data-target="#frmembarcar">BUSCAR</button>
+    </mat-form-field>
+</form>
+
+
+<div id="frmembarcar" class="modal fade" role="dialog">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title" id="frmbusqueda"></h4>
+            </div>
+            <div class="modal-body">
+                <input type="hidden" id="idmenu" value="">
+                <form class="form-horizontal">
+                    <div class="box-body">
+                        <div class="form-group">
+                            <label><b>Buscar:</b></label>
+                            <input class="form-control" placeholder="Escribe aqui lo que desees Buscar" type="text" name="txtBuscaEmbarcar" (keyup)="filtrar($event)" 
+                            [(ngModel)]="filtro"/>
+                        </div>
+                        <div id="gridembarcar">
+                            <kendo-grid 
+                            [data]="gridData" 
+                            [height]="400"
+                            >
+                                <kendo-grid-column field="codigo" title="Codigo" width="120">
+                                </kendo-grid-column>
+                                <kendo-grid-column field="descripcion" title="Descripcion">
+                                </kendo-grid-column>
+                                <kendo-grid-command-column title="Acciones" width="110">
+                                    <ng-template kendoGridCellTemplate let-dataItem>
+                                        <button class="k-primary" (click)="seleccionarEmbarcar(dataItem)" data-dismiss="modal">Seleccionar</button>
+                                    </ng-template>
+                                </kendo-grid-command-column>
+                            </kendo-grid>   
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+            </div>
+        </div>
+    </div>
+</div>

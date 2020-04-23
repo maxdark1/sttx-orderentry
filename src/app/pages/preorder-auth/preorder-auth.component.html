@@ -1,0 +1,112 @@
+<h3 id="titulo">Autorizacion de Ordenes de Venta</h3>
+<div class="main-content">
+    <div class='cargando' [hidden]='!cargando'>
+        <p>Realizando Acciones...</p>
+        <img src="../../../assets/img/loading_steel.gif" />
+    </div>
+    <p [hidden]='cargando'>Ordenes de Venta Pendientes de Autorizar:</p>
+    <kendo-grid [data]="preorden" [selectable]="true" [height]="200" [rowSelected]="isRowSelected" [hidden]='cargando'>
+        <kendo-grid-column field="folio" title="Folio" width="70">
+        </kendo-grid-column>
+        <kendo-grid-column field="cliente" title="Cliente" width="100">
+        </kendo-grid-column>
+        <kendo-grid-column field="cliente_desc" title="Cliente" width="300">
+        </kendo-grid-column>
+        <kendo-grid-column field="embarcar" title="Embarcar A" width="100">
+        </kendo-grid-column>
+        <kendo-grid-column field="embarcar_desc" title="Embarcar A" width="300">
+        </kendo-grid-column>
+        <kendo-grid-column field="almacen" title="Almacen" width="100">
+        </kendo-grid-column>
+        <kendo-grid-column field="fecha" title="Fecha" width="100" format="dd/MM/yyyy">
+        </kendo-grid-column>
+        <kendo-grid-column field="usuario" title="Usuario">
+        </kendo-grid-column>
+        <kendo-grid-command-column title="Acciones" width="110">
+            <ng-template kendoGridCellTemplate let-dataItem>
+                <button class="k-primary" (click)="seleccionarPreorden(dataItem)"
+                    data-dismiss="modal">Seleccionar</button>
+            </ng-template>
+        </kendo-grid-command-column>
+    </kendo-grid>
+    <br>
+    <p *ngIf="detalleOrdenes.length > 0" [hidden]='cargando'>Detalle de Orden de Venta:</p>
+    <kendo-grid *ngIf="detalleOrdenes.length > 0" [data]="detalleOrdenes" [rowClass]="rowCallback" [hidden]='cargando'>
+        <kendo-grid-column field="estado" title="Codigo de Error" width="70">
+        </kendo-grid-column>
+        <kendo-grid-column field="errordesc" title="Descripcion" width="200">
+        </kendo-grid-column>
+        <kendo-grid-column field="parte" title="Parte" width="110">
+        </kendo-grid-column>
+        <kendo-grid-column field="cantidad" title="Cantidad" width="100">
+                <ng-template kendoGridCellTemplate let-dataItem>
+                        {{ dataItem.cantidad | thousandsPipe }}
+                    </ng-template>
+        </kendo-grid-column>
+        <kendo-grid-column field="pronostico" title="Pronostico" width="100">
+                <ng-template kendoGridCellTemplate let-dataItem>
+                        {{ dataItem.pronostico | thousandsPipe }}
+                    </ng-template>
+        </kendo-grid-column>
+        <kendo-grid-column field="um" title="UM" width="50">
+        </kendo-grid-column>
+        <kendo-grid-column field="fechaSolicitada" title="Fecha Solicitada" format="dd/MM/yyyy" width="130">
+        </kendo-grid-column>
+        <kendo-grid-column field="fechaPromesa" title="Fecha Promesa" format="dd/MM/yyyy" width="130">
+        </kendo-grid-column>
+        <kendo-grid-column field="fechaEmbarque" title="Fecha Embarque" format="dd/MM/yyyy" width="130">
+        </kendo-grid-column>
+        <kendo-grid-column field="consignacion" title="Consignacion" width="100">
+        </kendo-grid-column>
+        <kendo-grid-column field="comentario1" title="OC Cliente" width="150">
+        </kendo-grid-column>
+        <kendo-grid-column field="comentario2" title="Comentario 1" width="150">
+        </kendo-grid-column>
+        <kendo-grid-column field="comentario3" title="Comentario 2" width="150">
+        </kendo-grid-column>
+        <kendo-grid-column field="comentario4" title="Comentario 3" width="150">
+        </kendo-grid-column>
+        <kendo-grid-column field="comentario5" title="Comentario 4" width="150">
+        </kendo-grid-column>
+        <kendo-grid-column field="comentario6" title="Comentario 5" width="150">
+        </kendo-grid-column>
+    </kendo-grid>
+
+    <br>
+    <div class="row" *ngIf="detalleOrdenes.length > 0" [hidden]='cargando'>
+        <div class="col-5"></div>
+        <div class="col-4"></div>
+        <div class="col-3">
+            <button matSuffix mat-raised-button color="primary" (click)='aprobar()'>APROBAR</button>&nbsp;
+            <button matSuffix mat-raised-button data-toggle="modal" data-target="#frmcausa">NO APROBAR</button>
+        </div>
+    </div>
+
+</div>
+
+
+<div id="frmcausa" class="modal fade" role="dialog">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title"></h4>
+            </div>
+            <div class="modal-body">
+                <input type="hidden" id="idmenu" value="">
+                <form class="form-horizontal">
+                    <div class="box-body">
+                        <mat-form-field class="example-full-width">
+                            <textarea matInput [(ngModel)]="causa" placeholder="Causa de desaprobacion"
+                                name="causa"></textarea>
+                        </mat-form-field>
+                        <button matSuffix mat-raised-button color="primary" (click)='noaprobar()'
+                            data-dismiss="modal">GUARDAR</button>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+            </div>
+        </div>
+    </div>
+</div>
