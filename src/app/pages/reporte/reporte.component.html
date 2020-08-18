@@ -88,12 +88,11 @@
 
             <kendo-grid-column field="vendedor" title="Vendedor" width="70"  [style]="{'background-color': '#888','color': '#fff'}"  >
             </kendo-grid-column>
-            <kendo-grid-column field="vendedor_desc" title="Vendedor" width="200"  [style]="{'background-color': '#888','color': '#fff'}"  >
+            <kendo-grid-column field="vendedor_desc" title="Vendedor" width="160"  [style]="{'background-color': '#888','color': '#fff'}"  >
             </kendo-grid-column>
 
             <kendo-grid-column field="embarcar" title="Embarcar" width="200"  [style]="{'background-color': '#888','color': '#fff'}"  >
             </kendo-grid-column>
-
             <div *kendoGridDetailTemplate="let dataItem">
                 <kendo-grid  [data]="dataItem.detalles">
                     <kendo-grid-column field="orden" title="Orden" width="80">
@@ -140,13 +139,14 @@
                     <kendo-grid-column field="pt_um" title="PT UM" width="90">
                     </kendo-grid-column>
                 </kendo-grid>
+                <br>
+                <div style="text-align-last: right; width: 90%;">
+                    <b>Total Ordenada:</b>  {{dataItem.total_ordenada | thousandsPipe}} &nbsp; &nbsp;
+                    <b>Total Embarcada:</b> {{dataItem.total_embarcada | thousandsPipe}} &nbsp; &nbsp;
+                    <b>Total Pendiente:</b> {{dataItem.total_pendiente | thousandsPipe}}
+                </div>
             </div>
-
         </kendo-grid>
-
-        
-
-    
     <br>
     <br>
     <br>

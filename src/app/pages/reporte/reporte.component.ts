@@ -24,6 +24,7 @@ export class ReporteComponent implements OnInit {
   public cargando: boolean = false;
   public datos: any = new Array<any>();
   public expandedDetailKeys: any[] = [];
+  
 
   constructor(private _ordenService: OrdenService) { }
 
@@ -68,8 +69,7 @@ export class ReporteComponent implements OnInit {
       let almacen_desc = this.datos[i].site_desc;
       let zona_desc = this.datos[i].region_desc;
       let cliente_desc = this.datos[i].cliente_nombre;
-      let vendedor_desc = this.datos[i].vendedor_desc;
-      
+      let vendedor_desc = this.datos[i].vendedor_desc;      
 
       let detalles = {
         "orden" : this.datos[i].orden,
@@ -126,6 +126,21 @@ export class ReporteComponent implements OnInit {
 
     }
 
+    for(let i=0; i < datosOrdenados.length; i++){
+      let total_ordenada : number = 0;
+      let total_embarcada : number = 0;
+      let total_pendiente : number = 0;
+      for(let x =0; x < datosOrdenados[i].detalles.length; x++){
+        total_ordenada += parseFloat(datosOrdenados[i].detalles[x].cantidad_ordenada);
+        total_embarcada += parseFloat(datosOrdenados[i].detalles[x].cantidad_embarcada);
+        total_pendiente += parseFloat(datosOrdenados[i].detalles[x].cantidad_pendiente);
+      }
+     // datosOrdenados[i].push({"total_ordenada": total_ordenada, "total_embarcada" : total_embarcada, "total_pendiente" : total_pendiente});
+        datosOrdenados[i]["total_ordenada"] = total_ordenada;
+        datosOrdenados[i]["total_embarcada"] = total_embarcada;
+        datosOrdenados[i]["total_pendiente"] = total_pendiente;
+    }
+    
     this.datos = datosOrdenados;
   }
 
