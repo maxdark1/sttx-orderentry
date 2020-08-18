@@ -22,7 +22,7 @@ export class ReporteComponent implements OnInit {
   public fecha1: Date = new Date(Date.now.toString());
   public fecha2: Date = new Date(Date.now.toString());
   public cargando: boolean = false;
-  public datos: any;
+  public datos: any = new Array<any>();
   public expandedDetailKeys: any[] = [];
 
   constructor(private _ordenService: OrdenService) { }
@@ -32,9 +32,14 @@ export class ReporteComponent implements OnInit {
   mostrarReporte() {
     this.cargando = true;
     this.expandedDetailKeys = [];
-    this._ordenService.reporte(this.orden, this.site, this.region, this.vendido, this.vendedor, new Date('2020-05-01'), new Date('2020-05-30')).subscribe(
+    this._ordenService.reporte(this.orden, this.site, this.region, this.vendido, this.vendedor, new Date(this.fecha1) , new Date(this.fecha2)).subscribe(
       response => {
-        this.datos = response.Reporte.ReporteRow;
+        if(response.Reporte.ReporteRow.length)
+        {
+          this.datos = response.Reporte.ReporteRow;
+        } else {
+          this.datos.push(response.Reporte.ReporteRow);
+        }
         this.cargando = false;
         this.ordenarDatos();
       },

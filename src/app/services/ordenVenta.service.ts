@@ -232,7 +232,7 @@ export class OrdenService {
         return this._http.post(this.url + API, params, { headers: headers });
     }
 
-    reporte(nbr,site,region,cust,sales,fecha1 : Date,fecha2 : Date) : Observable<any> {
+    reporte(nbr,site,region,cust,sales,fecha1 : Date, fecha2 : Date) : Observable<any> {
         //Definir Cabezeras de la peticion AJAX
         let headers = new HttpHeaders();
         headers.append('Access-Control-Request-Headers', '*');
