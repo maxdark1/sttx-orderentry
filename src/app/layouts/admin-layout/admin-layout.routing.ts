@@ -8,6 +8,7 @@ import { PreorderComponent } from '../../pages/preorder/preorder.component';
 import { PreorderAuthComponent } from '../../pages/preorder-auth/preorder-auth.component';
 import { PreorderListComponent } from '../../pages/preorder-list/preorder-list.component';
 import { DeactivateComponent } from '../../pages/deactivate/deactivate.component';
+import { ReporteComponent } from '../../pages/reporte/reporte.component';
 
 //Guards
 import {PermisoGuard} from '../../guards/permiso.guard';
@@ -20,5 +21,6 @@ export const AdminLayoutRoutes: Routes = [
     { path: 'preorder-auth', component: PreorderAuthComponent, canActivate: [PermisoGuard]},
     { path: 'preorder-list', component: PreorderListComponent, canActivate: [PermisoGuard]},
     { path: 'deactivate', component: DeactivateComponent, canActivate: [PermisoGuard]},
-    { path: '**', component: nopathComponent },  
+    { path: 'reporte', component: ReporteComponent, canActivate: [PermisoGuard] },
+    { path: '**', component: nopathComponent },
 ];

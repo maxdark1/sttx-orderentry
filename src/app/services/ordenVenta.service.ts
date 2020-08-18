@@ -232,4 +232,27 @@ export class OrdenService {
         return this._http.post(this.url + API, params, { headers: headers });
     }
 
+    reporte(nbr,site,region,cust,sales,fecha1 : Date,fecha2 : Date) : Observable<any> {
+        //Definir Cabezeras de la peticion AJAX
+        let headers = new HttpHeaders();
+        headers.append('Access-Control-Request-Headers', '*');
+        headers.append('Content-Type', 'application/json');
+        //Obtener Sesion de Usuario
+        let user: User = this._userService.obtenerusuario();
+        //Armar URL
+        let API = '/ordenventas/ordenventa.php';
+        //Enviar Parametros
+        let params = new FormData();
+        params.append('dominio', user.dominio);
+        params.append('nbr', nbr);
+        params.append('site', site);
+        params.append('region', region);
+        params.append('cust', cust);
+        params.append('slspsn', sales);
+        params.append('fecha', fecha1.toISOString());
+        params.append('fecha2', fecha2.toISOString());
+        //Realizar la peticion AJAX
+        return this._http.post(this.url + API, params, { headers: headers });
+    }
+
 }

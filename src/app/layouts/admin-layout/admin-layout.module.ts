@@ -18,6 +18,7 @@ import { PreorderAuthComponent } from '../../pages/preorder-auth/preorder-auth.c
 import { PreorderListComponent } from '../../pages/preorder-list/preorder-list.component';
 import { GridpartesDiscretaComponent } from '../../pages/preorder/gridpartes-discreta/gridpartes-discreta.component';
 import { DeactivateComponent } from '../../pages/deactivate/deactivate.component';
+import { ReporteComponent } from '../../pages/reporte/reporte.component';
 
 //Servicios
 import { AccesoService } from '../../services/acceso.service';
@@ -28,7 +29,7 @@ import { ClienteService } from '../../services/cliente.service';
 import { PermisoGuard } from '../../guards/permiso.guard';
 
 //Kendo UI Module
-import { GridModule } from '@progress/kendo-angular-grid';
+import { GridModule, ExcelModule  } from '@progress/kendo-angular-grid';
 import { IntlModule } from '@progress/kendo-angular-intl';
 
 //Pipes
@@ -54,7 +55,8 @@ import {
     MatInputModule,
     MatSelectModule,
     MatTooltipModule,
-    GridModule
+    GridModule,
+    ExcelModule
   ],
   declarations: [
     DashboardComponent,
@@ -69,7 +71,8 @@ import {
     PreorderListComponent,
     ThousandsPipe,
     GridpartesDiscretaComponent,
-    DeactivateComponent
+    DeactivateComponent,
+    ReporteComponent
   ],
   providers: [
     PermisoGuard,

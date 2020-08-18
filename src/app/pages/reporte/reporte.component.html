@@ -1,0 +1,153 @@
+<h3 id="titulo">Reporte de Requerimientos</h3>
+<div class="main-content">
+    <div class="container">
+        <div class="row">
+            <div class="col-4">
+                <div class="form-group">
+                    <label for="lblOrden">Orden de Trabajo</label> <br>
+                    <input type="text" [(ngModel)]="orden" name="txtOrden" class="form-control">
+                </div>
+            </div>
+            <div class="col-4">
+                <div class="form-group">
+                    <label for="lblAlmacen">Almacen</label> <br>
+                    <input type="text" [(ngModel)]="site" name="txtSite" class="form-control">
+                </div>
+            </div>
+            <div class="col-4">
+                <div class="form-group">
+                    <label for="lblRegion">Region</label> <br>
+                    <input type="text" [(ngModel)]="region" name="txtRegion" class="form-control">
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-4">
+                <div class="form-group">
+                    <label for="lblVendido">Vendido A</label> <br>
+                    <input type="text" [(ngModel)]="vendido" name="txtVendido" class="form-control">
+                </div>
+            </div>
+            <div class="col-4">
+                <div class="form-group">
+                    <label for="txtVendedor">Vendedor</label> <br>
+                    <input type="text" [(ngModel)]="vendedor" name="txtVendedor" class="form-control">
+                </div>
+            </div>
+            <div class="col-4">
+                <div class="form-group">
+                    <label for="txtVendedor">Rango de Fechas</label> <br>
+                    <div class="row">
+                        <div class="col-6">
+                            <input type="date" [(ngModel)]="fecha1" name="txtfecha1" class="form-control">
+                        </div>
+                        <div class="col-6">
+                            <input type="date" [(ngModel)]="fecha2" name="txtfecha2" class="form-control">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div> <br>
+        <div class="row">
+            <div class="col-12">
+                <button matSuffix mat-raised-button color="primary" (click)="mostrarReporte()" style="float:right !important;">Ejecutar</button>
+            </div>
+        </div>
+        <div class="row">
+            <div *ngIf="cargando">
+                <img src="../../../assets/img/loading_steel.gif">
+            </div><br>
+            
+        </div>
+    </div>
+</div>
+<div *ngIf="!cargando">
+
+
+        <kendo-grid [data]="datos" [kendoGridExpandDetailsBy]="expandDetailsBy" [(expandedDetailKeys)]="expandedDetailKeys">
+            <ng-template kendoGridToolbarTemplate>
+                <button matSuffix mat-raised-button color="primary" type="button" (click)="exportarExcel()" >Exportar a Excel</button>
+            </ng-template>
+
+           
+
+            <kendo-grid-column field="almacen" title="Almacen" width="70"  [style]="{'background-color': '#888','color': '#fff'}"  >
+            </kendo-grid-column>
+            <kendo-grid-column field="almacen_desc" title="Descripcion" width="200"  [style]="{'background-color': '#888','color': '#fff'}"  >
+            </kendo-grid-column>
+
+            <kendo-grid-column field="zona" title="Zona" width="70"  [style]="{'background-color': '#888','color': '#fff'}"  >
+            </kendo-grid-column>
+            <kendo-grid-column field="zona_desc" title="Descripcion" width="200"  [style]="{'background-color': '#888','color': '#fff'}"  >
+            </kendo-grid-column>
+
+            <kendo-grid-column field="cliente" title="Cliente" width="70"  [style]="{'background-color': '#888','color': '#fff'}"  >
+            </kendo-grid-column>
+            <kendo-grid-column field="cliente_desc" title="Descripcion" width="200"  [style]="{'background-color': '#888','color': '#fff'}"  >
+            </kendo-grid-column>
+
+            <kendo-grid-column field="vendedor" title="Vendedor" width="70"  [style]="{'background-color': '#888','color': '#fff'}"  >
+            </kendo-grid-column>
+            <kendo-grid-column field="vendedor_desc" title="Vendedor" width="200"  [style]="{'background-color': '#888','color': '#fff'}"  >
+            </kendo-grid-column>
+
+            <kendo-grid-column field="embarcar" title="Embarcar" width="200"  [style]="{'background-color': '#888','color': '#fff'}"  >
+            </kendo-grid-column>
+
+            <div *kendoGridDetailTemplate="let dataItem">
+                <kendo-grid  [data]="dataItem.detalles">
+                    <kendo-grid-column field="orden" title="Orden" width="80">
+                    </kendo-grid-column>
+                    <kendo-grid-column field="linea" title="Linea" width="60">
+                    </kendo-grid-column>
+                    <kendo-grid-column field="parte" title="Parte" width="120">
+                    </kendo-grid-column>
+                    <kendo-grid-column field="parte_descripcion" title="Parte cliente" width="150">
+                    </kendo-grid-column>
+                    <kendo-grid-column field="um" title="UM" width="60" format="dd/MM/yyyy">
+                    </kendo-grid-column>
+                    <kendo-grid-column field="espesor" title="Espesor" width="90" >
+                    </kendo-grid-column>
+                    <kendo-grid-column field="ancho" title="Ancho" width="90">
+                    </kendo-grid-column>
+                    <kendo-grid-column field="largo" title="Largo" width="90">
+                    </kendo-grid-column>
+                    <kendo-grid-column field="grado" title="Grado" width="200">
+                    </kendo-grid-column>
+                    <kendo-grid-column field="acabado" title="Acabado" width="150">
+                    </kendo-grid-column>
+                    <kendo-grid-column field="orden_compra" title="O.C." width="100">
+                    </kendo-grid-column>
+                    <kendo-grid-column field="cantidad_ordenada" title="Cantidad Ordenada" width="150">
+                        <ng-template kendoGridCellTemplate let-dataItem>
+                            {{ dataItem.cantidad_ordenada | thousandsPipe }}
+                        </ng-template>
+                    </kendo-grid-column>
+                    <kendo-grid-column field="cantidad_embarcada" title="Cantidad Embarcada" width="160">
+                        <ng-template kendoGridCellTemplate let-dataItem>
+                            {{ dataItem.cantidad_embarcada | thousandsPipe }}
+                        </ng-template>
+                    </kendo-grid-column>
+                    <kendo-grid-column field="cantidad_pendiente" title="Cantidad Pendiente" width="150">
+                        <ng-template kendoGridCellTemplate let-dataItem>
+                            {{ dataItem.cantidad_pendiente | thousandsPipe }}
+                        </ng-template>
+                    </kendo-grid-column>
+                    <kendo-grid-column field="fecha_vencimiento" title="Vencimiento" width="120" format="dd/MM/yyyy">
+                    </kendo-grid-column>
+                    <kendo-grid-column field="total_pt" title="Total PT" width="100">
+                    </kendo-grid-column>
+                    <kendo-grid-column field="pt_um" title="PT UM" width="90">
+                    </kendo-grid-column>
+                </kendo-grid>
+            </div>
+
+        </kendo-grid>
+
+        
+
+    
+    <br>
+    <br>
+    <br>
+</div>
