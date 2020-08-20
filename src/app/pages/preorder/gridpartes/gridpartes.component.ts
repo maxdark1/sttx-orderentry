@@ -83,7 +83,7 @@ export class GridpartesComponent implements OnInit {
             ordenes += "<b>Orden:</b> " + response.ttOrden.ttOrdenRow.orden + " <b>Cantidad:</b> " + response.ttOrden.ttOrdenRow.cantidad + " " + response.ttOrden.ttOrdenRow.UM + "<br>";
           }
 
-          swal.fire('Candado Orden Venta', 'Se encontraron lineas de la <b>Parte:</b> ' + parte.codigo_int + ' en Ordenes de Venta para esta semana <br>' + ordenes, 'error');
+          swal.fire('Atencion', 'Se encontraron lineas de la <b>Parte:</b> ' + parte.codigo_int + ' en otras Ordenes de Venta para esta semana <br>' + ordenes + '<br> No se agrego la linea a la preorden', 'error');
         }
         //Si no existen Ordenes de Compra existentes en la semana para la Misma Parte se agrega. 
         else {

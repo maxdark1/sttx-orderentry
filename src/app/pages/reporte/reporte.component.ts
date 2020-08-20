@@ -136,9 +136,9 @@ export class ReporteComponent implements OnInit {
         total_pendiente += parseFloat(datosOrdenados[i].detalles[x].cantidad_pendiente);
       }
      // datosOrdenados[i].push({"total_ordenada": total_ordenada, "total_embarcada" : total_embarcada, "total_pendiente" : total_pendiente});
-        datosOrdenados[i]["total_ordenada"] = total_ordenada;
-        datosOrdenados[i]["total_embarcada"] = total_embarcada;
-        datosOrdenados[i]["total_pendiente"] = total_pendiente;
+        datosOrdenados[i]["total_ordenada"] = total_ordenada.toFixed(2);
+        datosOrdenados[i]["total_embarcada"] = total_embarcada.toFixed(2);
+        datosOrdenados[i]["total_pendiente"] = total_pendiente.toFixed(2);
     }
     
     this.datos = datosOrdenados;
