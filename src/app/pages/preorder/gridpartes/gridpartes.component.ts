@@ -68,7 +68,7 @@ export class GridpartesComponent implements OnInit {
 
   obtenerParte(parte: Parte) {
     //Llamar Web Service para traer la sugerencia de OV
-    this._ordenService.obtenerPartes(parte, this.fechaInicio, this.fechaFin).subscribe(
+   /* this._ordenService.obtenerPartes(parte, this.fechaInicio, this.fechaFin).subscribe(
       response => {
         //Validacion de Ordenes de Compra existentes en la Semana para la Misma Parte.
         if (response.codigo == 200) {
@@ -96,7 +96,9 @@ export class GridpartesComponent implements OnInit {
       },
       error => {
         console.error(error);
-      });
+      });*/
+
+      this.sugerirCantidad(parte);
   }
 
 
