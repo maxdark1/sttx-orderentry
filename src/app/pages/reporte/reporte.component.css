@@ -1,0 +1,4 @@
+.k-grid tr.danger { background-color: #B41111; color: white;}
+.k-grid tr.warning { background-color:#CFCF18; color: black; }
+.k-grid tr.normal { background-color:white; color: black; }
+.k-grid tr.ok { background-color:#38A027; color: white; }

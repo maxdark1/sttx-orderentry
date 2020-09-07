@@ -94,7 +94,7 @@
             <kendo-grid-column field="embarcar" title="Embarcar" width="200"  [style]="{'background-color': '#888','color': '#fff'}"  >
             </kendo-grid-column>
             <div *kendoGridDetailTemplate="let dataItem">
-                <kendo-grid  [data]="dataItem.detalles">
+                <kendo-grid  [data]="dataItem.detalles" [rowClass]="rowCallback">
                     <kendo-grid-column field="orden" title="Orden" width="80">
                     </kendo-grid-column>
                     <kendo-grid-column field="linea" title="Linea" width="60">
@@ -135,8 +135,9 @@
                     <kendo-grid-column field="fecha_vencimiento" title="Vencimiento" width="120" format="dd/MM/yyyy">
                     </kendo-grid-column>
                     <kendo-grid-column field="total_pt" title="Total PT" width="100">
-                    </kendo-grid-column>
-                    <kendo-grid-column field="pt_um" title="PT UM" width="90">
+                        <ng-template kendoGridCellTemplate let-dataItem>
+                            {{ dataItem.total_pt | thousandsPipe }}
+                        </ng-template>
                     </kendo-grid-column>
                 </kendo-grid>
                 <br>

@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild, ViewEncapsulation } from '@angular/core';
 
 //Servicios
 import { OrdenService } from '../../services/ordenVenta.service';
@@ -6,11 +6,16 @@ import { OrdenService } from '../../services/ordenVenta.service';
 //Bibliotecas
 import * as moment from 'moment';
 
+//Dependencias KENDO
+import { RowArgs } from '@progress/kendo-angular-grid';
+import { RowClassArgs } from '@progress/kendo-angular-grid';
+
 @Component({
   selector: 'app-reporte',
   templateUrl: './reporte.component.html',
   styleUrls: ['./reporte.component.css'],
-  providers: [OrdenService]
+  providers: [OrdenService],
+  encapsulation: ViewEncapsulation.None,
 })
 export class ReporteComponent implements OnInit {
 
@@ -33,6 +38,7 @@ export class ReporteComponent implements OnInit {
   mostrarReporte() {
     this.cargando = true;
     this.expandedDetailKeys = [];
+    this.datos  = new Array<any>();
     this._ordenService.reporte(this.orden, this.site, this.region, this.vendido, this.vendedor, new Date(this.fecha1) , new Date(this.fecha2)).subscribe(
       response => {
         if(response.Reporte.ReporteRow.length)
@@ -87,7 +93,7 @@ export class ReporteComponent implements OnInit {
         "cantidad_embarcada" : this.datos[i].cantidad_embarcada,
         "cantidad_pendiente" : this.datos[i].cantidad_pendiente,
         "fecha_vencimiento" : new Date(this.datos[i].fecha_vencimiento),
-        "total_pt" : this.datos[i].total_pt,
+        "total_pt" : parseFloat(this.datos[i].total_pt).toFixed(2),
         "pt_um" : this.datos[i].pt_um
       };
 
@@ -146,6 +152,37 @@ export class ReporteComponent implements OnInit {
 
   public exportarExcel(){
     console.log("Se ejecuta");
+  }
+
+
+  public rowCallback(context: RowClassArgs) {
+    let warning = false;
+    let danger = false;
+    let normal = false;
+    let ok = false;
+
+    let fechaActual = moment();
+    let fechavencido = moment(context.dataItem.fecha_vencimiento);
+
+  
+    if(fechaActual > fechavencido){
+      warning = false;
+      danger = true;
+      normal = false;
+    }
+
+    if (fechaActual.diff(fechavencido,'days') <= 3) {
+      warning = true;
+      danger = false;
+      normal = false;
+    }
+
+    return {
+      warning: warning,
+      danger: danger,
+      normal: normal,
+      ok: ok
+    };
   }
 
 }
