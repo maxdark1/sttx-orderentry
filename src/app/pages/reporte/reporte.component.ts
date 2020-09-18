@@ -77,6 +77,8 @@ export class ReporteComponent implements OnInit {
       let cliente_desc = this.datos[i].cliente_nombre;
       let vendedor_desc = this.datos[i].vendedor_desc;      
 
+  
+
       let detalles = {
         "orden" : this.datos[i].orden,
         "linea" : this.datos[i].linea,

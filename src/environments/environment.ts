@@ -5,6 +5,6 @@
 
 export const environment = {
   production: false,
-  apiurl: 'http://localhost/sttx-webapi',
+  apiurl: 'http://localhost/sttx-webapi-orderentry',
   baseurl: 'http://localhost/web-sttx'
 };
