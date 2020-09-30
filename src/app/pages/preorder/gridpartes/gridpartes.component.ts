@@ -196,8 +196,7 @@ export class GridpartesComponent implements OnInit {
 
       let validaciones = true;
 
-      let fechaFinal: Date = new Date();
-      fechaFinal.setDate(this.fechaFin.getDate() + this.dias);
+      let fechaFinal: Date = new Date(this.fechaFin.setDate(this.fechaFin.getDate() + this.dias));
       
       if (fechaSolicitada < this.fechaInicio || fechaSolicitada > this.fechaFin) {
         validaciones = false;

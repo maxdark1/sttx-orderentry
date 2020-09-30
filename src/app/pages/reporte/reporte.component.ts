@@ -153,7 +153,14 @@ export class ReporteComponent implements OnInit {
   }
 
   public exportarExcel(){
-    console.log("Se ejecuta");
+    this._ordenService.generarExcel(this.datos).subscribe(
+      response => {
+        
+      },
+      error => {
+        console.error(error);
+      }
+    );
   }
 
 

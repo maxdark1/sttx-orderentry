@@ -255,4 +255,18 @@ export class OrdenService {
         return this._http.post(this.url + API, params, { headers: headers });
     }
 
+    generarExcel(datosExcel) : Observable<any> {
+        //Definir Cabezeras de la peticion AJAX
+        let headers = new HttpHeaders();
+        headers.append('Access-Control-Request-Headers', '*');
+        headers.append('Content-Type', 'application/json');
+        //Armar URL
+        let API = '/ordenventas/ordenventa.php';
+        //Enviar Parametros
+        let params = new FormData();
+        params.append('datosExcel', JSON.stringify(datosExcel));
+        //Realizar la peticion AJAX
+        return this._http.post(this.url + API, params, { headers: headers });
+    }
+
 }
