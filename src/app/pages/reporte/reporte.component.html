@@ -2,19 +2,59 @@
 <div class="main-content">
     <div class="container">
         <div class="row">
-            <div class="col-4">
+            <div class="col-3">
                 <div class="form-group">
                     <label for="lblOrden">Orden de Trabajo</label> <br>
                     <input type="text" [(ngModel)]="orden" name="txtOrden" class="form-control">
                 </div>
             </div>
-            <div class="col-4">
-                <div class="form-group">
-                    <label for="lblAlmacen">Almacen</label> <br>
-                    <input type="text" [(ngModel)]="site" name="txtSite" class="form-control">
+            <div class="col-3">
+                <div class="form-group" *ngIf="!rol == 1 || !rol == 2">
+                    <label for="lblVendido">Vendido A</label> <br>
+                    <input type="text" [(ngModel)]="vendido" name="txtVendido" class="form-control">
+                </div>
+                <div class="form-group" *ngIf="rol == 1 || rol == 2">
+                    <label for="lblVendido">Vendido A</label> <br>
+                    <kendo-dropdownlist name="dpvendido" 
+                    [data]="dropdownclientesfilter"
+                    [textField]="'descripcion'"
+                    [valueField]="'codigo'"
+                    [(ngModel)]="vendido"
+                    [valuePrimitive]="true"
+                    style="width: 100%;"
+                    [filterable]="true"
+                    (filterChange)="filtroclientes($event)"
+                    >
+                    <ng-template kendoDropDownListItemTemplate let-dataItem>
+                        {{dataItem.codigo}} - {{dataItem.descripcion}}
+                    </ng-template>
+                    </kendo-dropdownlist>
                 </div>
             </div>
-            <div class="col-4">
+            <div class="col-3">
+                <div class="form-group" *ngIf="!rol == 1 || !rol == 2">
+                    <label for="lblEmbarcar">Embarcar A</label> <br>
+                    <input type="text" [(ngModel)]="embarcar" name="txtEmbarcar" class="form-control">
+                </div>
+                <div class="form-group" *ngIf="rol == 1 || rol == 2">
+                    <label for="lblEmbarcar">Embarcar A</label> <br>
+                    <kendo-dropdownlist name="dpembarcar" 
+                    [data]="dropdownembarcasfilter"
+                    [textField]="'descripcion'"
+                    [valueField]="'codigo'"
+                    [(ngModel)]="embarcar"
+                    [valuePrimitive]="true"
+                    style="width: 100%;"
+                    [filterable]="true"
+                    (filterChange)="filtroembarcar($event)"
+                    >
+                    <ng-template kendoDropDownListItemTemplate let-dataItem>
+                        {{dataItem.codigo}} - {{dataItem.descripcion}}
+                    </ng-template>
+                    </kendo-dropdownlist>
+                </div>
+            </div>
+            <div class="col-3">
                 <div class="form-group">
                     <label for="lblRegion">Region</label> <br>
                     <input type="text" [(ngModel)]="region" name="txtRegion" class="form-control">
@@ -23,15 +63,38 @@
         </div>
         <div class="row">
             <div class="col-4">
-                <div class="form-group">
-                    <label for="lblVendido">Vendido A</label> <br>
-                    <input type="text" [(ngModel)]="vendido" name="txtVendido" class="form-control">
+                <div class="form-group" *ngIf="!rol == 1 || !rol == 2">
+                    <label for="lblAlmacen">Almacen</label> <br>
+                    <input type="text" [(ngModel)]="site" name="txtSite" class="form-control">
+                </div>
+                <div class="form-group" *ngIf="rol == 1 || rol == 2">
+                    <label for="lblAlmacen">Almacen</label> <br>
+                    <kendo-dropdownlist name="dpSite" 
+                    [data]="dropdownalmacenesfilter"
+                    [textField]="'descripcion'"
+                    [valueField]="'codigo'"
+                    [(ngModel)]="site"
+                    [valuePrimitive]="true"
+                    style="width: 100%;"
+                    [filterable]="true"
+                    (filterChange)="filtroalmacenes($event)"
+                    >
+                    <ng-template kendoDropDownListItemTemplate let-dataItem>
+                        {{dataItem.codigo}} - {{dataItem.descripcion}}
+                    </ng-template>
+                    </kendo-dropdownlist>
                 </div>
             </div>
-            <div class="col-4">
+            <div class="col-2">
                 <div class="form-group">
                     <label for="txtVendedor">Vendedor</label> <br>
-                    <input type="text" [(ngModel)]="vendedor" name="txtVendedor" class="form-control">
+                    <input type="text" [(ngModel)]="vendedor" [disabled]="limitado" name="txtVendedor" class="form-control">
+                </div>
+            </div>
+            <div class="col-2">
+                <div class="form-group">
+                    <label for="txtVendedorInterno">Vendedor Interno</label> <br>
+                    <input type="text" [(ngModel)]="inside" [disabled]="limitado" name="txtVendedorInterno" class="form-control">
                 </div>
             </div>
             <div class="col-4">
@@ -49,7 +112,9 @@
             </div>
         </div> <br>
         <div class="row">
-            <div class="col-12">
+            <div class="col-4"></div>
+            <div class="col-4"></div>
+            <div class="col-4">
                 <button matSuffix mat-raised-button color="primary" (click)="mostrarReporte()" style="float:right !important;">Ejecutar</button>
             </div>
         </div>

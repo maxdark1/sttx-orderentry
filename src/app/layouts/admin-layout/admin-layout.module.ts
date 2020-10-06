@@ -31,6 +31,7 @@ import { PermisoGuard } from '../../guards/permiso.guard';
 //Kendo UI Module
 import { GridModule, ExcelModule  } from '@progress/kendo-angular-grid';
 import { IntlModule } from '@progress/kendo-angular-intl';
+import { DropDownsModule } from '@progress/kendo-angular-dropdowns';
 
 //Pipes
 import { ThousandsPipe }  from '../../pipes/ThousandsPipe';
@@ -56,7 +57,8 @@ import {
     MatSelectModule,
     MatTooltipModule,
     GridModule,
-    ExcelModule
+    ExcelModule,
+    DropDownsModule
   ],
   declarations: [
     DashboardComponent,

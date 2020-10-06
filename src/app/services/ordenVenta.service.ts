@@ -232,7 +232,7 @@ export class OrdenService {
         return this._http.post(this.url + API, params, { headers: headers });
     }
 
-    reporte(nbr,site,region,cust,sales,fecha1 : Date, fecha2 : Date) : Observable<any> {
+    reporte(nbr,site,region,cust,sales,fecha1 : Date, fecha2 : Date,inside,embarcar) : Observable<any> {
         //Definir Cabezeras de la peticion AJAX
         let headers = new HttpHeaders();
         headers.append('Access-Control-Request-Headers', '*');
@@ -251,6 +251,8 @@ export class OrdenService {
         params.append('slspsn', sales);
         params.append('fecha', fecha1.toISOString());
         params.append('fecha2', fecha2.toISOString());
+        params.append('inside', inside);
+        params.append('embarcar', embarcar);
         //Realizar la peticion AJAX
         return this._http.post(this.url + API, params, { headers: headers });
     }
@@ -267,6 +269,19 @@ export class OrdenService {
         params.append('datosExcel', JSON.stringify(datosExcel));
         //Realizar la peticion AJAX
         return this._http.post(this.url + API, params, { headers: headers });
+    }
+
+    obtenerFiltros() : Observable<any> {
+        //Definir Cabezeras de la peticion AJAX
+        let headers = new HttpHeaders();
+        headers.append('Access-Control-Request-Headers', '*');
+        headers.append('Content-Type', 'application/json');
+        //Obtener Sesion de Usuario
+        let user: User = this._userService.obtenerusuario();
+        //Armar URL
+        let params = '/ordenventas/ordenventa.php?' + "dominio=" + user.dominio + "&usuario=" + user.userid;
+        //Realizar la peticion AJAX
+        return this._http.get(this.url + params, { headers: headers });
     }
 
 }

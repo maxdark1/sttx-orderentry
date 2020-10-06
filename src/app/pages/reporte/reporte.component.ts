@@ -9,6 +9,7 @@ import * as moment from 'moment';
 //Dependencias KENDO
 import { RowArgs } from '@progress/kendo-angular-grid';
 import { RowClassArgs } from '@progress/kendo-angular-grid';
+import { environment } from 'environments/environment';
 
 @Component({
   selector: 'app-reporte',
@@ -24,22 +25,85 @@ export class ReporteComponent implements OnInit {
   public region: string = "";
   public vendido: string = "";
   public vendedor: string = "";
+  public inside : string = "";
+  public embarcar : string = "";
   public fecha1: Date = new Date(Date.now.toString());
   public fecha2: Date = new Date(Date.now.toString());
   public cargando: boolean = false;
   public datos: any = new Array<any>();
   public expandedDetailKeys: any[] = [];
-  
+  public rol: number = 0;
+  public almacenes : Array<any> = new Array<any>();
+  public clientes : Array<any> = new Array<any>();
+  public embarcars : Array<any> = new Array<any>();
+  public dropdownalmacenesfilter : Array<any> = new Array<any>();
+  public dropdownclientesfilter: Array<any> = new Array<any>();
+  public dropdownembarcasfilter: Array<any> = new Array<any>();
+  public limitado = false;
+ 
 
-  constructor(private _ordenService: OrdenService) { }
+  constructor(private _ordenService: OrdenService) {
+    this.dropdownalmacenesfilter = this.almacenes.slice();
+    this.dropdownclientesfilter = this.clientes.slice();
+    this.dropdownembarcasfilter = this.embarcars.slice();
+   }
 
-  ngOnInit() { }
+   filtroalmacenes(value) {
+    this.dropdownalmacenesfilter = this.almacenes.filter((s) => s.codigo.toLowerCase().indexOf(value.toLowerCase()) !== -1);
+  }
+
+  filtroclientes(value) {
+    this.dropdownclientesfilter = this.clientes.filter((s) => s.codigo.toLowerCase().indexOf(value.toLowerCase()) !== -1);
+  }
+
+  filtroembarcar(value) {
+    this.dropdownembarcasfilter = this.embarcars.filter((s) => s.codigo.toLowerCase().indexOf(value.toLowerCase()) !== -1);
+  }
+
+  ngOnInit() { 
+    this.cargando = true;
+    //Obtener Filtros de Usuario
+    this._ordenService.obtenerFiltros().subscribe(
+      response => {
+        this.cargando = false;
+        if(response.codigo == 200){
+          this.rol = response.permisos;
+          this.almacenes = response.almacenes.almacenesRow;
+          this.almacenes.push({codigo:"",descripcion:"Todos los Almacenes"});
+          this.dropdownalmacenesfilter = this.almacenes;
+          this.clientes = response.clientes.clientesRow;
+          this.clientes.push({codigo:"",descripcion:"Todos los Clientes"});
+          this.dropdownclientesfilter = this.clientes;
+          this.embarcars = response.embarcars.embarcarsRow;
+          this.embarcars.push({codigo:"",descripcion:"Todos los Embarcar A"});
+          this.dropdownembarcasfilter = this.embarcars;
+          if(this.rol == 1 || this.rol == 2){
+            this.limitado = true;
+          }
+          switch(this.rol){
+            case 1: 
+                this.inside = response.vendedor;
+              break;
+            case 2:
+                this.vendedor = response.vendedor;
+              break;
+          }
+        }
+        else {
+          this.rol = 0;
+        }
+      },
+      error => {
+        console.error(error);
+      }
+    );
+  }
 
   mostrarReporte() {
     this.cargando = true;
     this.expandedDetailKeys = [];
     this.datos  = new Array<any>();
-    this._ordenService.reporte(this.orden, this.site, this.region, this.vendido, this.vendedor, new Date(this.fecha1) , new Date(this.fecha2)).subscribe(
+    this._ordenService.reporte(this.orden, this.site, this.region, this.vendido, this.vendedor, new Date(this.fecha1) , new Date(this.fecha2),this.inside,this.embarcar).subscribe(
       response => {
         if(response.Reporte.ReporteRow.length)
         {
@@ -155,7 +219,9 @@ export class ReporteComponent implements OnInit {
   public exportarExcel(){
     this._ordenService.generarExcel(this.datos).subscribe(
       response => {
-        
+        if(response = 200){
+          window.open(environment.apiurl + "/tempFiles/Ordenes.xlsx");
+        }
       },
       error => {
         console.error(error);
