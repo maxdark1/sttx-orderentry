@@ -133,9 +133,6 @@
             <ng-template kendoGridToolbarTemplate>
                 <button matSuffix mat-raised-button color="primary" type="button" (click)="exportarExcel()" >Exportar a Excel</button>
             </ng-template>
-
-           
-
             <kendo-grid-column field="almacen" title="Almacen" width="70"  [style]="{'background-color': '#888','color': '#fff'}"  >
             </kendo-grid-column>
             <kendo-grid-column field="almacen_desc" title="Descripcion" width="200"  [style]="{'background-color': '#888','color': '#fff'}"  >
@@ -161,6 +158,8 @@
             <div *kendoGridDetailTemplate="let dataItem">
                 <kendo-grid  [data]="dataItem.detalles" [rowClass]="rowCallback">
                     <kendo-grid-column field="orden" title="Orden" width="80">
+                    </kendo-grid-column>
+                    <kendo-grid-column field="fecha_vencimiento" title="Vencimiento" width="120" format="dd/MM/yyyy">
                     </kendo-grid-column>
                     <kendo-grid-column field="linea" title="Linea" width="60">
                     </kendo-grid-column>
@@ -196,8 +195,6 @@
                         <ng-template kendoGridCellTemplate let-dataItem>
                             {{ dataItem.cantidad_pendiente | thousandsPipe }}
                         </ng-template>
-                    </kendo-grid-column>
-                    <kendo-grid-column field="fecha_vencimiento" title="Vencimiento" width="120" format="dd/MM/yyyy">
                     </kendo-grid-column>
                     <kendo-grid-column field="total_pt" title="Total PT" width="100">
                         <ng-template kendoGridCellTemplate let-dataItem>

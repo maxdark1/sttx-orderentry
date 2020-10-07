@@ -10,6 +10,7 @@ import * as moment from 'moment';
 import { RowArgs } from '@progress/kendo-angular-grid';
 import { RowClassArgs } from '@progress/kendo-angular-grid';
 import { environment } from 'environments/environment';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-reporte',
@@ -50,14 +51,27 @@ export class ReporteComponent implements OnInit {
 
    filtroalmacenes(value) {
     this.dropdownalmacenesfilter = this.almacenes.filter((s) => s.codigo.toLowerCase().indexOf(value.toLowerCase()) !== -1);
+    if(this.dropdownalmacenesfilter.length == 0)
+    {
+      this.dropdownalmacenesfilter = this.almacenes.filter((s) => s.descripcion.toLowerCase().indexOf(value.toLowerCase()) !== -1);
+    }
   }
 
   filtroclientes(value) {
     this.dropdownclientesfilter = this.clientes.filter((s) => s.codigo.toLowerCase().indexOf(value.toLowerCase()) !== -1);
+    if(this.dropdownclientesfilter.length == 0)
+    {
+      this.dropdownclientesfilter = this.clientes.filter((s) => s.descripcion.toLowerCase().indexOf(value.toLowerCase()) !== -1);
+    }
   }
 
   filtroembarcar(value) {
+
     this.dropdownembarcasfilter = this.embarcars.filter((s) => s.codigo.toLowerCase().indexOf(value.toLowerCase()) !== -1);
+    if(this.dropdownembarcasfilter.length == 0)
+    {
+      this.dropdownembarcasfilter = this.embarcars.filter((s) => s.descripcion.toLowerCase().indexOf(value.toLowerCase()) !== -1);
+    }
   }
 
   ngOnInit() { 
@@ -105,17 +119,23 @@ export class ReporteComponent implements OnInit {
     this.datos  = new Array<any>();
     this._ordenService.reporte(this.orden, this.site, this.region, this.vendido, this.vendedor, new Date(this.fecha1) , new Date(this.fecha2),this.inside,this.embarcar).subscribe(
       response => {
-        if(response.Reporte.ReporteRow.length)
-        {
-          this.datos = response.Reporte.ReporteRow;
-        } else {
-          this.datos.push(response.Reporte.ReporteRow);
+        try{
+          if(response.Reporte.ReporteRow.length)
+          {
+            this.datos = response.Reporte.ReporteRow;
+          } else {
+            this.datos.push(response.Reporte.ReporteRow);
+          }
+          this.cargando = false;
+          this.ordenarDatos();
         }
-        this.cargando = false;
-        this.ordenarDatos();
+        catch(error){
+          Swal.fire("Ups!","No se pudo obtener la informacion solicitada","error");
+        }
       },
       error => {
         console.error(error);
+        Swal.fire("Ups!","No se pudo obtener la informacion solicitada","error");
       }
     );
   }
