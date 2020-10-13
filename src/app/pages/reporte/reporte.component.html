@@ -9,11 +9,11 @@
                 </div>
             </div>
             <div class="col-3">
-                <div class="form-group" *ngIf="!rol == 1 || !rol == 2">
+                <div class="form-group" *ngIf="!(rol == 1 || rol == 2)">
                     <label for="lblVendido">Vendido A</label> <br>
                     <input type="text" [(ngModel)]="vendido" name="txtVendido" class="form-control">
                 </div>
-                <div class="form-group" *ngIf="rol == 1 || rol == 2">
+                <div class="form-group" *ngIf="(rol == 1 || rol == 2)">
                     <label for="lblVendido">Vendido A</label> <br>
                     <kendo-dropdownlist name="dpvendido" 
                     [data]="dropdownclientesfilter"
@@ -32,11 +32,11 @@
                 </div>
             </div>
             <div class="col-3">
-                <div class="form-group" *ngIf="!rol == 1 || !rol == 2">
+                <div class="form-group" *ngIf="!(rol == 1 || rol == 2)">
                     <label for="lblEmbarcar">Embarcar A</label> <br>
                     <input type="text" [(ngModel)]="embarcar" name="txtEmbarcar" class="form-control">
                 </div>
-                <div class="form-group" *ngIf="rol == 1 || rol == 2">
+                <div class="form-group" *ngIf="(rol == 1 || rol == 2)">
                     <label for="lblEmbarcar">Embarcar A</label> <br>
                     <kendo-dropdownlist name="dpembarcar" 
                     [data]="dropdownembarcasfilter"
@@ -63,11 +63,11 @@
         </div>
         <div class="row">
             <div class="col-4">
-                <div class="form-group" *ngIf="!rol == 1 || !rol == 2">
+                <div class="form-group" *ngIf="!(rol == 1 || rol == 2)">
                     <label for="lblAlmacen">Almacen</label> <br>
                     <input type="text" [(ngModel)]="site" name="txtSite" class="form-control">
                 </div>
-                <div class="form-group" *ngIf="rol == 1 || rol == 2">
+                <div class="form-group" *ngIf="(rol == 1 || rol == 2)">
                     <label for="lblAlmacen">Almacen</label> <br>
                     <kendo-dropdownlist name="dpSite" 
                     [data]="dropdownalmacenesfilter"

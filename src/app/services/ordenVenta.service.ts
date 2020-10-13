@@ -167,7 +167,7 @@ export class OrdenService {
         //Obtener Sesion de Usuario
         let user: User = this._userService.obtenerusuario();
         //Armar URL
-        let params = '/ordenventas/ordenventa.php?' + "dominio=" + user.dominio + "&usuario=" + user.userid + "&estado=" + status;
+        let params = '/ordenventas/ordenventa.php?' + "dominio=" + user.dominio + "&usuariolista=" + user.userid + "&estado=" + status;
         //Realizar la peticion AJAX
         return this._http.get(this.url + params, { headers: headers });
     }

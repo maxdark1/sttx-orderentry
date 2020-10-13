@@ -353,6 +353,10 @@ export class PreorderComponent implements OnInit {
   }
 
   generarOV() {
+    if(this.embarcar.codigo == ""){
+      this.embarcar.codigo = this.cliente.cliente;
+      this.embarcar.descripcion = this.cliente.nombre;
+    }
     if (this.folio != 'Nuevo') {
       if (this.autorizacion == true) {
         //Solicitud de Autorizacion
@@ -531,6 +535,10 @@ export class PreorderComponent implements OnInit {
 
 
   revisarFolio() {
+    if(this.embarcar.codigo == ""){
+      this.embarcar.codigo = this.cliente.cliente;
+      this.embarcar.descripcion = this.cliente.nombre;
+    }
     if (this.folio == "Nuevo") {
       this.guardarpreOrden();
     }
@@ -720,6 +728,10 @@ export class PreorderComponent implements OnInit {
   }
 
   validarOVs() {
+    if(this.embarcar.codigo == ""){
+      this.embarcar.codigo = this.cliente.cliente;
+      this.embarcar.descripcion = this.cliente.nombre;
+    }
     this.cargando = !this.cargando;
     this.orden1Response = new Array<any>();
     this.orden2Response = new Array<any>();

@@ -240,7 +240,7 @@ export class ReporteComponent implements OnInit {
     this._ordenService.generarExcel(this.datos).subscribe(
       response => {
         if(response = 200){
-          window.open(environment.apiurl + "/tempFiles/Ordenes.xlsx");
+          window.location.href = environment.apiurl + "/tempFiles/Ordenes.xlsx";
         }
       },
       error => {

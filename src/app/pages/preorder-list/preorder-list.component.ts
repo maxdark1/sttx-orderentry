@@ -69,7 +69,7 @@ export class PreorderListComponent implements OnInit {
         }
       },
       error => {
-        console.error("Error al Consumir el WS [wsgetincompleteorder]: " + error);
+        console.error(error);
       }
     );
 
