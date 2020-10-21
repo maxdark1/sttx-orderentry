@@ -28,8 +28,8 @@ export class ReporteComponent implements OnInit {
   public vendedor: string = "";
   public inside : string = "";
   public embarcar : string = "";
-  public fecha1: Date = new Date(Date.now.toString());
-  public fecha2: Date = new Date(Date.now.toString());
+  public fecha1 : Date = new Date(Date.now.toString());
+  public fecha2 : Date = new Date(Date.now.toString());
   public cargando: boolean = false;
   public datos: any = new Array<any>();
   public expandedDetailKeys: any[] = [];
@@ -114,6 +114,13 @@ export class ReporteComponent implements OnInit {
   }
 
   mostrarReporte() {
+    if(this.fecha1.toString() == 'Invalid Date'){
+      this.fecha1 = new Date(100000000000); //Cumpleaños de Juan Lara
+    }
+    if(this.fecha2.toString() == 'Invalid Date'){
+      this.fecha2 = new Date();
+    }
+
     this.cargando = true;
     this.expandedDetailKeys = [];
     this.datos  = new Array<any>();
