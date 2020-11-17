@@ -2,9 +2,14 @@ import { Component, OnInit, ViewChild, ViewEncapsulation } from '@angular/core';
 
 //Servicios
 import { OrdenService } from '../../services/ordenVenta.service';
+import { configuracionService } from '../../services/configuracion.service';
+import { UserService } from '../../services/user.service';
 
 //Bibliotecas
 import * as moment from 'moment';
+
+//Modelos
+import { User } from '../../models/user.model';
 
 //Dependencias KENDO
 import { RowArgs } from '@progress/kendo-angular-grid';
@@ -16,7 +21,7 @@ import Swal from 'sweetalert2';
   selector: 'app-reporte',
   templateUrl: './reporte.component.html',
   styleUrls: ['./reporte.component.css'],
-  providers: [OrdenService],
+  providers: [OrdenService, configuracionService, UserService],
   encapsulation: ViewEncapsulation.None,
 })
 export class ReporteComponent implements OnInit {
@@ -37,16 +42,21 @@ export class ReporteComponent implements OnInit {
   public almacenes : Array<any> = new Array<any>();
   public clientes : Array<any> = new Array<any>();
   public embarcars : Array<any> = new Array<any>();
+  public inside_sales : Array<any> = new Array<any>();
   public dropdownalmacenesfilter : Array<any> = new Array<any>();
   public dropdownclientesfilter: Array<any> = new Array<any>();
   public dropdownembarcasfilter: Array<any> = new Array<any>();
   public limitado = false;
+  public Usuario : User;
  
 
-  constructor(private _ordenService: OrdenService) {
+  constructor(private _ordenService: OrdenService, 
+              private _configurationService : configuracionService,
+              private _userService : UserService) {
     this.dropdownalmacenesfilter = this.almacenes.slice();
     this.dropdownclientesfilter = this.clientes.slice();
     this.dropdownembarcasfilter = this.embarcars.slice();
+    this.Usuario = this._userService.obtenerusuario();
    }
 
    filtroalmacenes(value) {
@@ -93,6 +103,21 @@ export class ReporteComponent implements OnInit {
           this.dropdownembarcasfilter = this.embarcars;
           if(this.rol == 1 || this.rol == 2){
             this.limitado = true;
+            this._configurationService.obtenerConfiguracionWeb('jefe_inside_sales').subscribe(
+              respuesta => {
+                let tmp = JSON.parse(respuesta[0][3]);
+                for(let i = 0; i < tmp.jefes.length; i++){
+                  if(tmp.jefes[i].jefe == this.Usuario.userid){
+                    this.inside_sales = tmp.jefes[i].usuarios;
+                  }
+                }
+                console.log(response);
+                this.inside_sales.push({'codigo': response.vendedor, 'usuario' : this.Usuario.userid});
+              },
+              error => {
+                console.error(error);
+              }
+            );
           }
           switch(this.rol){
             case 1: 

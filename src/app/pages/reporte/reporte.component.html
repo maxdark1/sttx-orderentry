@@ -92,9 +92,24 @@
                 </div>
             </div>
             <div class="col-2">
-                <div class="form-group">
+                <div class="form-group" *ngIf="!(rol == 1 || rol == 2)">
                     <label for="txtVendedorInterno">Vendedor Interno</label> <br>
                     <input type="text" [(ngModel)]="inside" [disabled]="limitado" name="txtVendedorInterno" class="form-control">
+                </div>
+                <div class="form-group" *ngIf="(rol == 1 || rol == 2)">
+                    <label for="txtVendedorInterno">Vendedor Interno</label> <br>
+                    <kendo-dropdownlist name="dpInside" 
+                    [data]="inside_sales"
+                    [textField]="'usuario'"
+                    [valueField]="'codigo'"
+                    [(ngModel)]="inside"
+                    [valuePrimitive]="true"
+                    style="width: 100%;"
+                    >
+                    <ng-template kendoDropDownListItemTemplate let-dataItem>
+                        {{dataItem.codigo}} - {{dataItem.usuario}}
+                    </ng-template>
+                    </kendo-dropdownlist>
                 </div>
             </div>
             <div class="col-4">
