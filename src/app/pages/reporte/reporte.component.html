@@ -127,10 +127,17 @@
             </div>
         </div> <br>
         <div class="row">
-            <div class="col-4"></div>
+            <div class="col-4">
+            <label for="statusOV">Rango de Fechas</label>
+            <select class="form-control" [(ngModel)]="statusOV" name="statusOV">
+                <option value="abierta">Abiertas</option>
+                <option value="cerrada">Cerradas</option>
+            </select>    
+            </div>
             <div class="col-4"></div>
             <div class="col-4">
-                <button matSuffix mat-raised-button color="primary" (click)="mostrarReporte()" style="float:right !important;">Ejecutar</button>
+                <button *ngIf="statusOV == 'abierta'" matSuffix mat-raised-button color="primary" (click)="mostrarReporte()" style="float:right !important;">Ejecutar</button>
+                <button *ngIf="statusOV == 'cerrada'" matSuffix mat-raised-button color="primary" (click)="mostrarReporteCumplimiento()" style="float:right !important;">Ejecutar</button>
             </div>
         </div>
         <div class="row">
@@ -175,6 +182,8 @@
                     <kendo-grid-column field="orden" title="Orden" width="80">
                     </kendo-grid-column>
                     <kendo-grid-column field="fecha_vencimiento" title="Vencimiento" width="120" format="dd/MM/yyyy">
+                    </kendo-grid-column>
+                    <kendo-grid-column *ngIf="statusOV == 'cerrada'" title="Embarque" field="fecha_embarque" format="dd/MM/yyyy" width="120">
                     </kendo-grid-column>
                     <kendo-grid-column field="linea" title="Linea" width="60">
                     </kendo-grid-column>
