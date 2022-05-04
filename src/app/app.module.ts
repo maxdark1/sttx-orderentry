@@ -10,10 +10,10 @@ import { AppRoutingModule } from './app.routing';
 import { ComponentsModule } from './components/components.module';
 import { AppComponent } from './app.component';
 
-import {
-  AgmCoreModule
-} from '@agm/core';
+
 import { AdminLayoutComponent } from './layouts/admin-layout/admin-layout.component';
+import { LabelModule } from '@progress/kendo-angular-label';
+
 
 
 
@@ -29,6 +29,7 @@ import { AdminLayoutComponent } from './layouts/admin-layout/admin-layout.compon
     ComponentsModule,
     RouterModule,
     AppRoutingModule,
+    LabelModule,
   ],
   declarations: [
     AppComponent,
