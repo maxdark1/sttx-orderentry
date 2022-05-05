@@ -1,12 +1,18 @@
-// Modulos
-import { NgModule,LOCALE_ID } from '@angular/core';
+import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AdminLayoutRoutes } from './admin-layout.routing';
 
+
+import {MatButtonModule} from '@angular/material/button';
+import {MatInputModule} from '@angular/material/input';
+import {MatRippleModule} from '@angular/material/core';
+import {MatFormFieldModule} from '@angular/material/form-field';
+import {MatTooltipModule} from '@angular/material/tooltip';
+import {MatSelectModule} from '@angular/material/select';
+
 // Componentes
-import { DashboardComponent } from '../../pages/dashboard/dashboard.component';
 import { IconsComponent } from '../../icons/icons.component';
 import { nopathComponent } from '../../nopath/nopath.component';
 import { PreorderComponent } from '../../pages/preorder/preorder.component';
@@ -30,26 +36,17 @@ import { PermisoGuard } from '../../guards/permiso.guard';
 
 //Kendo UI Module
 import { GridModule, ExcelModule  } from '@progress/kendo-angular-grid';
-import { IntlModule } from '@progress/kendo-angular-intl';
 import { DropDownsModule } from '@progress/kendo-angular-dropdowns';
 
 //Pipes
 import { ThousandsPipe }  from '../../pipes/ThousandsPipe';
-
-//Angular Material
-import {MatButtonModule} from '@angular/material/button';
-import {MatInputModule} from '@angular/material/input';
-import {MatRippleModule} from '@angular/material/core';
-import {MatFormFieldModule} from '@angular/material/form-field';
-import {MatTooltipModule} from '@angular/material/tooltip';
-import {MatSelectModule} from '@angular/material/select';
-
 
 @NgModule({
   imports: [
     CommonModule,
     RouterModule.forChild(AdminLayoutRoutes),
     FormsModule,
+    ReactiveFormsModule,
     MatButtonModule,
     MatRippleModule,
     MatFormFieldModule,
@@ -61,7 +58,6 @@ import {MatSelectModule} from '@angular/material/select';
     DropDownsModule
   ],
   declarations: [
-    DashboardComponent,
     IconsComponent,
     nopathComponent,
     PreorderComponent,
@@ -84,4 +80,4 @@ import {MatSelectModule} from '@angular/material/select';
   ]
 })
 
-export class AdminLayoutModule { }
+export class AdminLayoutModule {}
