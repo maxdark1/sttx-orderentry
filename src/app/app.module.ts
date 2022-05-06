@@ -10,6 +10,7 @@ import { AdminLayoutComponent } from './layouts/admin-layout/admin-layout.compon
 import { LabelModule } from '@progress/kendo-angular-label';
 import { TreeViewModule } from '@progress/kendo-angular-treeview';
 
+
 @NgModule({
   imports: [
     BrowserAnimationsModule,
@@ -24,8 +25,7 @@ import { TreeViewModule } from '@progress/kendo-angular-treeview';
   ],
   declarations: [
     AppComponent,
-    AdminLayoutComponent,
-
+    AdminLayoutComponent
   ],
   providers: [],
   bootstrap: [AppComponent]

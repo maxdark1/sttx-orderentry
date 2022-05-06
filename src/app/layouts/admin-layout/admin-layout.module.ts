@@ -25,6 +25,8 @@ import { PreorderListComponent } from '../../pages/preorder-list/preorder-list.c
 import { GridpartesDiscretaComponent } from '../../pages/preorder/gridpartes-discreta/gridpartes-discreta.component';
 import { DeactivateComponent } from '../../pages/deactivate/deactivate.component';
 import { ReporteComponent } from '../../pages/reporte/reporte.component';
+import { SolicitudVendedorComponent } from '../../pages/solicitud-vendedor/solicitud-vendedor.component';
+import { AutorizacionCambioComponent } from '../../pages/autorizacion-cambio/autorizacion-cambio.component';
 
 //Servicios
 import { AccesoService } from '../../services/acceso.service';
@@ -70,7 +72,9 @@ import { ThousandsPipe }  from '../../pipes/ThousandsPipe';
     ThousandsPipe,
     GridpartesDiscretaComponent,
     DeactivateComponent,
-    ReporteComponent
+    ReporteComponent,
+    SolicitudVendedorComponent,
+    AutorizacionCambioComponent
   ],
   providers: [
     PermisoGuard,
