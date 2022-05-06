@@ -1,13 +1,29 @@
-<h3 id="titulo">Solicitud Cambio Vendedor Asignado</h3>
-<div class="main-content">
+<h2 id="titulo">Solicitud Cambio Vendedor Asignado</h2>
 
-    <div class='cargando' [hidden]='!cargando'>
-        <p>Realizando Acciones...</p>
-        <img src="../../../assets/img/loading_steel.gif" />
+<div class="main-content">
+    <div class="contenedorpadre">
+        <div class='cargando' [hidden]='!cargando'>
+            <p>Realizando Acciones...</p>
+            <img src="../../../assets/img/loading_steel.gif" />
+        </div>
+
+        <form class="Nueva Solicitud">
+            <button matSuffix mat-raised-button color="primary" data-toggle="modal" (click)="consola('Hola Loca')">Nueva
+                Solicitud de Cambio de Vendedor</button>
+        </form>
     </div>
 
-    <form class="Nueva Solicitud">
-        <button matSuffix mat-raised-button color="primary" data-toggle="modal" (click)="consola('Hola Loca')">Nueva Solicitud de Cambio de Vendedor</button>
-    </form> 
+    <div class="contenedorpadre">
+        <h3>Solicitudes Pendientes</h3>
+    </div>
+
+    <div class="row">
+        <div class="col-1"></div>
+        <div class="col-10">
+            <div id="gridSolicitudes"></div>
+        </div>
+        <div class="col-1"></div>
+    </div>
+
 
 </div>
