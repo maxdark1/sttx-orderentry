@@ -1,0 +1,14 @@
+#gridSolicitudes{
+    background-color: darkslategrey;
+    height: 600px;
+    width: auto;
+}
+
+#titulo{
+    margin-top: 20px;
+    margin-left: 50px;
+}
+
+.contenedorpadre{
+    margin-left: 60px;
+}
