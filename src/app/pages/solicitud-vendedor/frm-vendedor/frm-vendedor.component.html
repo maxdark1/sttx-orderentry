@@ -1,0 +1,20 @@
+<h2 id="titulo">Solicitud Cambio Vendedor Asignado</h2>
+
+<div class="main-content">
+    <div class="contenedorpadre">
+        <h3>Nueva Solicitud</h3>
+        <label>Solicita: </label><label>Nombre del solicitante</label>
+        <div class="row">
+            <div class="col-4">
+                <app-busqueda-cliente [hidden]='cargando' (cliente)="obtenerCliente($event)"
+                    [clienteSeleccionado]="cliente.nombre"></app-busqueda-cliente>
+            </div>
+            <div class="col-4">
+                <app-busqueda-embarcar [hidden]='cargando' [embarcarSeleccionado]="embarcar.descripcion"
+                    [_cliente]="cliente" (embarcar)="obtenerEmbarcar($event)">
+                </app-busqueda-embarcar>
+            </div>
+        </div>
+        
+    </div>
+</div>

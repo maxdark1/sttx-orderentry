@@ -9,6 +9,7 @@ import { DeactivateComponent } from '../../pages/deactivate/deactivate.component
 import { ReporteComponent } from '../../pages/reporte/reporte.component';
 import { SolicitudVendedorComponent } from '../../pages/solicitud-vendedor/solicitud-vendedor.component';
 import { AutorizacionCambioComponent } from '../../pages/autorizacion-cambio/autorizacion-cambio.component';
+import { FrmVendedorComponent } from '../../pages/solicitud-vendedor/frm-vendedor/frm-vendedor.component';
 
 //Guards
 import {PermisoGuard} from '../../guards/permiso.guard';
@@ -22,5 +23,6 @@ export const AdminLayoutRoutes: Routes = [
     { path: 'reporte', component: ReporteComponent, canActivate: [PermisoGuard] },
     { path: 'solicitud-cambio', component: SolicitudVendedorComponent,/* canActivate: [PermisoGuard] */},
     { path: 'aprobacion-cambio', component: AutorizacionCambioComponent, /*canActivate: [PermisoGuard] */},
+    { path: 'frm-vendedor', component: FrmVendedorComponent,/* canActivate: [PermisoGuard] */},
     { path: '**', component: nopathComponent }, 
 ];

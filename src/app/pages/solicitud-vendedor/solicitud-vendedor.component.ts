@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-solicitud-vendedor',
@@ -9,13 +10,16 @@ export class SolicitudVendedorComponent implements OnInit {
 
   public cargando: boolean = false;
 
-  constructor() { }
+  constructor(private router: Router) { }
 
   ngOnInit(): void {
   }
 
-  public consola = (mensaje: string) : void => {
-    console.log(mensaje);
+ 
+
+  public nuevoSolicitud = () : void => {
+    let dataItem = {};
+    this.router.navigate(['/frm-vendedor'], {state: {dataItem}});
   }
 
 }
