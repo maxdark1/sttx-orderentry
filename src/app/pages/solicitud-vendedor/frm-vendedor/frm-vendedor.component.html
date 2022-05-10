@@ -4,6 +4,7 @@
     <div class="contenedorpadre">
         <h3>Nueva Solicitud</h3>
         <label>Solicita: </label><label>Nombre del solicitante</label>
+        <!--Formulario de Consulta-->
         <div class="row">
             <div class="col-4">
                 <app-busqueda-cliente [hidden]='cargando' (cliente)="obtenerCliente($event)"
@@ -13,8 +14,35 @@
                 <app-busqueda-embarcar [hidden]='cargando' [embarcarSeleccionado]="embarcar.descripcion"
                     [_cliente]="cliente" (embarcar)="obtenerEmbarcar($event)">
                 </app-busqueda-embarcar>
+            </div>     
+        </div>
+        <button matSuffix mat-raised-button color="primary" [hidden]='cargando' (click)="limpiar()">
+            Limpiar Filtros
+        </button> <br><br>
+        <!--Formulario de Cambio-->
+        <div class="row">
+            <!--Vendedores Actuales-->
+            <div class="col-4">
+                <b>
+                    <h3>Vendedores Actuales</h3>
+                </b>
+                <b>Inside Sales: </b><br><br>
+                <p>{{ inside.nombre }}</p><br>
+                <b>Gerente de Ventas: </b><br><br>
+                <p>{{ vendedor.nombre }}</p><br>
+                <b>Sub Director de Ventas: </b><br><br>
+                <p>{{ subdir.nombre }}</p><br>
+            </div>
+            <!--Vendedores Nuevos-->
+            <div class="col-4">
+                <b>
+                    <h3>Vendedores Nuevos</h3>
+                </b>
+                <b>Inside Sales: </b> <app-busqueda-vendedor></app-busqueda-vendedor>
+                <b>Gerente de Ventas: </b> <app-busqueda-vendedor></app-busqueda-vendedor>
+                <b>Sub Director de Ventas: </b> <app-busqueda-vendedor></app-busqueda-vendedor>
             </div>
         </div>
-        
+
     </div>
 </div>
