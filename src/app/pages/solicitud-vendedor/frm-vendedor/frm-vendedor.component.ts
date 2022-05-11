@@ -23,6 +23,10 @@ export class FrmVendedorComponent implements OnInit {
   public vendedor: Vendedor = new Vendedor('','');
   public subdir : Vendedor = new Vendedor('','');
 
+  public inside_nuevo : Vendedor = new Vendedor('','');
+  public vendedor_nuevo : Vendedor = new Vendedor('','');
+  public subdir_nuevo : Vendedor = new Vendedor('','');
+
   constructor(private _vendedor: VendedorService) { }
 
   ngOnInit(): void {
@@ -74,6 +78,13 @@ export class FrmVendedorComponent implements OnInit {
     this.subdir = new Vendedor('','');
     this.cliente = new Cliente('','');
     this.embarcar = new Embarcar('','');
+    this.inside_nuevo = new Vendedor('','');
+    this.vendedor_nuevo = new Vendedor('','');
+    this.subdir_nuevo = new Vendedor('','');
+  }
+
+  solicitarAutorizacion = () => {
+    console.log(this.inside_nuevo, this.vendedor_nuevo, this.subdir_nuevo);
   }
 
 }
