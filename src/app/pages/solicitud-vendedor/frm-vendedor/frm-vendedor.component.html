@@ -1,5 +1,4 @@
 <h2 id="titulo">Solicitud Cambio Vendedor Asignado</h2>
-
 <div class="main-content">
     <div class="contenedorpadre">
         <h3>Nueva Solicitud</h3>
@@ -7,20 +6,24 @@
         <!--Formulario de Consulta-->
         <div class="row">
             <div class="col-4">
-                <app-busqueda-cliente [hidden]='cargando' (cliente)="obtenerCliente($event)"
+                <app-busqueda-cliente  (cliente)="obtenerCliente($event)"
                     [clienteSeleccionado]="cliente.nombre"></app-busqueda-cliente>
             </div>
             <div class="col-4">
-                <app-busqueda-embarcar [hidden]='cargando' [embarcarSeleccionado]="embarcar.descripcion"
+                <app-busqueda-embarcar [embarcarSeleccionado]="embarcar.descripcion"
                     [_cliente]="cliente" (embarcar)="obtenerEmbarcar($event)">
                 </app-busqueda-embarcar>
             </div>     
         </div>
-        <button matSuffix mat-raised-button color="primary" [hidden]='cargando' (click)="limpiar()">
+        <button matSuffix mat-raised-button color="primary" [hidden]='!cargando' (click)="limpiar()">
             Limpiar Filtros
-        </button> <br><br>
+        </button> &nbsp;&nbsp;
+        <button matSuffix mat-raised-button color="primary" [hidden]='!cargando' (click)="solicitarAutorizacion()">
+            Solicitar Autorizacion
+        </button> 
+        <br><br>
         <!--Formulario de Cambio-->
-        <div class="row">
+        <div [hidden]='!cargando' class="row">
             <!--Vendedores Actuales-->
             <div class="col-4">
                 <b>
@@ -38,9 +41,13 @@
                 <b>
                     <h3>Vendedores Nuevos</h3>
                 </b>
-                <b>Inside Sales: </b> <app-busqueda-vendedor></app-busqueda-vendedor>
-                <b>Gerente de Ventas: </b> <app-busqueda-vendedor></app-busqueda-vendedor>
-                <b>Sub Director de Ventas: </b> <app-busqueda-vendedor></app-busqueda-vendedor>
+                <b>Inside Sales: </b> <app-busqueda-vendedor [vendedorSeleccionado] = "inside_nuevo.nombre" [instancia]="1" (oVendedor)="inside_nuevo = $event"></app-busqueda-vendedor>
+                <b>Gerente de Ventas: </b> <app-busqueda-vendedor [vendedorSeleccionado] = "vendedor_nuevo.nombre" [instancia]="2" (oVendedor)="vendedor_nuevo = $event"></app-busqueda-vendedor>
+                <b>Sub Director de Ventas: </b> <app-busqueda-vendedor [vendedorSeleccionado] = "subdir_nuevo.nombre" [instancia]="3" (oVendedor)="subdir_nuevo = $event"></app-busqueda-vendedor>
+                <br><br>
+
+                <button id="btnsolicitud" matSuffix mat-raised-button color="primary" [hidden]='!cargando' (click)="generarSolicitud()"> Solicitar Cambio </button>
+
             </div>
         </div>
 
