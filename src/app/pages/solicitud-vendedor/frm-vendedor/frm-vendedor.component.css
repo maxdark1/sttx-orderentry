@@ -6,3 +6,7 @@
 .contenedorpadre{
     margin-left: 60px;
 }
+
+#btnsolicitud{
+    float:right;
+}

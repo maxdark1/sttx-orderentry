@@ -47,5 +47,8 @@ export class VendedorService {
         //Realizar la peticion AJAX
         return this._http.get(this.url+params, {headers: headers});
   }
-  
+
+  guardarSolicitud = (inside : Vendedor, vendedor: Vendedor, subdir: Vendedor) : Observable<any> => {
+    return this._http.post('','');
+  }  
 }
