@@ -94,6 +94,20 @@ export class FrmVendedorComponent implements OnInit {
     let validations = await this.validarInformacion();
     if(validations){
       //Guardar Solicitud
+      this._vendedor.guardarSolicitud(0,this.inside_nuevo,this.vendedor_nuevo,this.subdir_nuevo,this.cliente,this.embarcar).subscribe(
+        {
+          next: (response) => {
+            if(response.oCode == 200){
+              swal.fire('OK!', 'Datos Guardados con Exito', 'success');
+              this.limpiar();
+            }
+          },
+          error: (e) => {
+            console.error("Ocurrio un error al Consumir el Web Service [wssetspreq] " + e);
+            swal.fire('Ups!', 'Ocurrio un error al Consumir el Web Service [wssetspreq]', 'error');
+          }
+        }
+      );
     }
   }
 
