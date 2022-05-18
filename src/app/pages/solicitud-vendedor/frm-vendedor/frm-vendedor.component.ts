@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import swal from 'sweetalert2';
+import { Router } from '@angular/router';
 
 //Modelos
 import { Cliente } from '../../../models/cliente.model';
@@ -27,7 +28,7 @@ export class FrmVendedorComponent implements OnInit {
   public vendedor_nuevo: Vendedor = new Vendedor('', '');
   public subdir_nuevo: Vendedor = new Vendedor('', '');
 
-  constructor(private _vendedor: VendedorService) { }
+  constructor(private _vendedor: VendedorService, private router: Router) { }
 
   ngOnInit(): void {
   }
@@ -147,6 +148,10 @@ export class FrmVendedorComponent implements OnInit {
       }
     }).catch(() => { validations = false; });
     return validations;
+  }
+
+  irLista() {
+    this.router.navigate(['/solicitud-cambio']);
   }
 
 }
