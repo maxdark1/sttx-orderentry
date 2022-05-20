@@ -1,4 +1,56 @@
-<h3 id="titulo">Aprobacion cambio de Vendedor asignado</h3>
+<h2 id="titulo">Autorizacion Cambio Vendedor Asignado</h2>
+
 <div class="main-content">
-    Componente de Autorizacion de cambio Trabajando!!
+    <div class="contenedorpadre">
+        <div class='cargando' [hidden]='!cargando'>
+            <p>Realizando Acciones...</p>
+            <img src="../../../assets/img/loading_steel.gif" />
+        </div>
+    </div>
+
+    <br>
+    <div class="contenedorpadre">
+        <h2>Solicitudes Pendientes</h2>
+    </div>
+
+    <div class="row">
+        <div class="col-1"></div>
+        <div class="col-10">
+            
+            <kendo-grid [data]="pendientes">
+                <kendo-grid-column field="tt-cliente" title="Cliente" width="70">
+                </kendo-grid-column>
+                <kendo-grid-column field="tt-embarcar" title="Embarcar a" width="80">
+                </kendo-grid-column>
+                <kendo-grid-column field="tt-fecha" title="Fecha" width="80" format="dd/MM/yyyy">
+                </kendo-grid-column>
+                <kendo-grid-column field="tt-folio" title="Folio" width="60">
+                </kendo-grid-column>
+                <kendo-grid-column field="tt-inside" title="Inside Sales" width="80">
+                </kendo-grid-column>
+                <kendo-grid-column field="tt-inside-desc" title="Nombre" width="100" >
+                </kendo-grid-column>
+                <kendo-grid-column field="tt-vendedor" title="Vendedor" width="80">
+                </kendo-grid-column>
+                <kendo-grid-column field="tt-vendedor-desc" title="Nombre" width="100">
+                </kendo-grid-column>
+                <kendo-grid-column field="tt-subdir" title="Sub Director" width="80">
+                </kendo-grid-column>
+                <kendo-grid-column field="tt-subdir-desc" title="Nombre" width="100">
+                </kendo-grid-column>
+                <kendo-grid-column field="tt-usuario" title="Usuario Solicitud" width="80">
+                </kendo-grid-column>
+                <kendo-grid-command-column title="Acciones" width="200">
+                    <ng-template kendoGridCellTemplate let-dataItem>
+                        <button class="k-primary" (click)="holaLoca(dataItem)">Detalle</button>&nbsp;
+                        <button class="k-primary" (click)="holaLoca(dataItem)">Aprobar</button>
+                    </ng-template>
+                </kendo-grid-command-column>
+            </kendo-grid>
+
+        </div>
+        <div class="col-1"></div>
+    </div>
+
+
 </div>
