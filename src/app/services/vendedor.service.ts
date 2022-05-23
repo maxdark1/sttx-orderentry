@@ -83,4 +83,27 @@ export class VendedorService {
     //Realizar la peticion AJAX
     return this._http.post(this.url + API, params, { headers: headers });
   }
+
+  aprobarSolicitud = (cliente: Cliente, embarcar: Embarcar, inside: Vendedor, vendedor: Vendedor, subdir: Vendedor, folio : number) :  Observable<any> => {
+    //Definir Cabezeras de la peticion AJAX
+    let headers = new HttpHeaders();
+    headers.append('Access-Control-Request-Headers', '*');
+    headers.append('content-type', 'application/json');
+    //Obtener Sesion de Usuario
+    let user: User = this._userService.obtenerusuario();
+    //Armar URL
+    let API = '/vendedores/vendedor.php';
+    //Enviar Parametros
+    let params = new FormData();
+    params.append('domain', user.dominio);
+    params.append('cliente', cliente.cliente);
+    params.append('embarcar', embarcar.codigo);
+    params.append('inside', inside.codigo);
+    params.append('vendedor', vendedor.codigo);
+    params.append('subdir', cliente.cliente);
+    params.append('folio',folio.toString());
+    //Realizar la peticion AJAX
+    return this._http.post(this.url + API, params, { headers: headers });
+  }
+
 }
