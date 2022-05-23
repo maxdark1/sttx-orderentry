@@ -1,4 +1,100 @@
-<h3 id="titulo">Aprobacion cambio de Vendedor asignado</h3>
+<h2 id="titulo">Autorizacion Cambio Vendedor Asignado</h2>
+
 <div class="main-content">
-    Componente de Autorizacion de cambio Trabajando!!
+    <div class="contenedorpadre">
+        <div class='cargando' [hidden]='!cargando'>
+            <p>Realizando Acciones...</p>
+            <img src="../../../assets/img/loading_steel.gif" />
+        </div>
+    </div>
+
+    <br>
+    <div class="contenedorpadre">
+        <h2>Solicitudes Pendientes</h2>
+    </div>
+
+    <div class="row">
+        <div class="col-1"></div>
+        <div class="col-10">
+
+            <kendo-grid [data]="pendientes">
+                <kendo-grid-column field="tt-cliente" title="Cliente" width="70">
+                </kendo-grid-column>
+                <kendo-grid-column field="tt-embarcar" title="Embarcar a" width="70">
+                </kendo-grid-column>
+                <kendo-grid-column field="tt-fecha" title="Fecha" width="70" format="dd/MM/yyyy">
+                </kendo-grid-column>
+                <kendo-grid-column field="tt-folio" title="Folio" width="50">
+                </kendo-grid-column>
+                <kendo-grid-column field="tt-inside" title="Inside Sales" width="60">
+                </kendo-grid-column>
+                <kendo-grid-column field="tt-inside-desc" title="Nombre" width="120">
+                </kendo-grid-column>
+                <kendo-grid-column field="tt-vendedor" title="Vendedor" width="60">
+                </kendo-grid-column>
+                <kendo-grid-column field="tt-vendedor-desc" title="Nombre" width="120">
+                </kendo-grid-column>
+                <kendo-grid-column field="tt-subdir" title="Sub Director" width="60">
+                </kendo-grid-column>
+                <kendo-grid-column field="tt-subdir-desc" title="Nombre" width="120">
+                </kendo-grid-column>
+                <kendo-grid-column field="tt-usuario" title="Usuario Solicitud" width="80">
+                </kendo-grid-column>
+                <kendo-grid-command-column title="Acciones" width="60">
+                    <ng-template kendoGridCellTemplate let-dataItem>
+                        <span class="material-icons" (click)="cargarVista(dataItem)" data-toggle="modal"
+                            data-target="#frmvendedores">search</span>
+                    </ng-template>
+                </kendo-grid-command-column>
+            </kendo-grid>
+
+        </div>
+        <div class="col-1"></div>
+    </div>
+</div>
+
+
+
+<div id="frmvendedores" class="modal fade" role="dialog">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="frmbusqueda">Vista de Vendedores</h4>
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
+            <div class="modal-body">
+                <input type="hidden" id="idmenu" value="">
+                <form class="form-horizontal">
+                    <div class="box-body">
+                        <div class="form-group" id="frmvendedoresgroup">
+                            <div class="row">
+                                <div class="col-6" id="vendedoresViejos">
+                                    <h4>Vendedores Actuales:</h4>
+                                    <ul>
+                                        <li>{{ viejo_inside.codigo }} - {{ viejo_inside.nombre }}</li>
+                                        <li>{{ viejo_vendedor.codigo }} - {{ viejo_vendedor.nombre }}</li>
+                                        <li>{{ viejo_subdir.codigo }} - {{ viejo_subdir.nombre }}</li>
+                                    </ul>
+                                </div>
+                                <div class="col-6" id="vendedoresNuevos">
+                                    <h4>Solicitud de Cambio:</h4>
+                                    <ul>
+                                        <li>{{ nuevo_inside.codigo }} - {{ nuevo_inside.nombre }}</li>
+                                        <li>{{ nuevo_vendedor.codigo }} - {{ nuevo_vendedor.nombre }}</li>
+                                        <li>{{ nuevo_subdir.codigo }} - {{ nuevo_subdir.nombre }}</li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div style="float: right;">
+                                <button matSuffix mat-raised-button color="primary" (click)="aprobarSolicitud()" data-dismiss="modal">APROBAR</button>&nbsp;
+                                <button matSuffix mat-raised-button color="warn" data-dismiss="modal">RECHAZAR</button>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+            </div>
+        </div>
+    </div>
 </div>
