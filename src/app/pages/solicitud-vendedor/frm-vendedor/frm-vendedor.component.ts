@@ -95,22 +95,21 @@ export class FrmVendedorComponent implements OnInit {
 
   generarSolicitud = async () => {
     let validations = await this.validarInformacion();
-    if(validations){
+    if (validations) {
       //Guardar Solicitud
-      this._vendedor.guardarSolicitud(0,this.inside_nuevo,this.vendedor_nuevo,this.subdir_nuevo,this.cliente,this.embarcar).subscribe(
+      this._vendedor.guardarSolicitud(0, this.inside_nuevo, this.vendedor_nuevo, this.subdir_nuevo, this.cliente, this.embarcar).subscribe(
         {
           next: async (response) => {
-            if(response.oCode == 200){
+            if (response.oCode == 200) {
               swal.fire('OK!', 'Datos Guardados con Exito', 'success');
+
+              //Lanzar Notificacion por correo
+              let correos = await firstValueFrom(this._notificacion.obtenerCorreos('11', 'VTA_NOT', 'VTA_NOT'));
+              let json = JSON.parse(correos.correos).root.users as Array<any>;
+              let mails = json.map(x => x.Correo + ",").join().slice(0, -1);
+              await firstValueFrom(this._notificacion.enviarCorreo(mails, correos.titulo, correos.cuerpo + "<br> Cliente: " + this.cliente.cliente + " Embarcar: " + this.embarcar.codigo, correos.pie));
               this.limpiar();
             }
-
-            //Lanzar Notificacion por correo
-            let correos = await firstValueFrom(this._notificacion.obtenerCorreos('11','VTA_NOT','VTA_NOT'));
-            let json = JSON.parse(correos.correos).root.users as Array<any>;
-            let mails = json.map(x => x.Correo+",").join().slice(0, -1);
-            
-            await firstValueFrom(this._notificacion.enviarCorreo(mails,correos.titulo,correos.cuerpo,correos.pie));
           },
           error: (e) => {
             console.error("Ocurrio un error al Consumir el Web Service [wssetspreq] " + e);
