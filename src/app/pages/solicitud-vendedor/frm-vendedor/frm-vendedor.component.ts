@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import swal from 'sweetalert2';
 import { Router } from '@angular/router';
+import { firstValueFrom } from 'rxjs';
 
 //Modelos
 import { Cliente } from '../../../models/cliente.model';
@@ -9,12 +10,13 @@ import { Vendedor } from '../../../models/vendedor.model';
 
 //Servicios
 import { VendedorService } from '../../../services/vendedor.service';
+import { NotificacionService } from '../../../services/notificacion.service';
 
 @Component({
   selector: 'app-frm-vendedor',
   templateUrl: './frm-vendedor.component.html',
   styleUrls: ['./frm-vendedor.component.css'],
-  providers: [VendedorService]
+  providers: [VendedorService, NotificacionService]
 })
 export class FrmVendedorComponent implements OnInit {
   public cargando: boolean = false;
@@ -28,7 +30,7 @@ export class FrmVendedorComponent implements OnInit {
   public vendedor_nuevo: Vendedor = new Vendedor('', '');
   public subdir_nuevo: Vendedor = new Vendedor('', '');
 
-  constructor(private _vendedor: VendedorService, private router: Router) { }
+  constructor(private _vendedor: VendedorService, private router: Router, private _notificacion: NotificacionService) { }
 
   ngOnInit(): void {
   }
@@ -93,13 +95,19 @@ export class FrmVendedorComponent implements OnInit {
 
   generarSolicitud = async () => {
     let validations = await this.validarInformacion();
-    if(validations){
+    if (validations) {
       //Guardar Solicitud
-      this._vendedor.guardarSolicitud(0,this.inside_nuevo,this.vendedor_nuevo,this.subdir_nuevo,this.cliente,this.embarcar).subscribe(
+      this._vendedor.guardarSolicitud(0, this.inside_nuevo, this.vendedor_nuevo, this.subdir_nuevo, this.cliente, this.embarcar).subscribe(
         {
-          next: (response) => {
-            if(response.oCode == 200){
+          next: async (response) => {
+            if (response.oCode == 200) {
               swal.fire('OK!', 'Datos Guardados con Exito', 'success');
+
+              //Lanzar Notificacion por correo
+              let correos = await firstValueFrom(this._notificacion.obtenerCorreos('11', 'VTA_NOT', 'VTA_NOT'));
+              let json = JSON.parse(correos.correos).root.users as Array<any>;
+              let mails = json.map(x => x.Correo + ",").join().slice(0, -1);
+              await firstValueFrom(this._notificacion.enviarCorreo(mails, correos.titulo, correos.cuerpo + "<br> Cliente: " + this.cliente.cliente + " Embarcar: " + this.embarcar.codigo, correos.pie));
               this.limpiar();
             }
           },
