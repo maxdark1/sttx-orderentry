@@ -65,8 +65,8 @@ export class AutorizacionCambioComponent implements OnInit {
     this.nuevo_vendedor = new Vendedor(dataItem['tt-vendedor'],dataItem['tt-vendedor-desc']);
     this.nuevo_subdir = new Vendedor(dataItem['tt-subdir'],dataItem['tt-subdir-desc']);
 
-    this.cliente = new Cliente(dataItem['tt-cliente'],'');
-    this.embarcar = new Embarcar(dataItem['tt-embarcar'],'');
+    this.cliente = new Cliente(dataItem['tt-cliente'],dataItem['tt-cliente-desc']);
+    this.embarcar = new Embarcar(dataItem['tt-embarcar'],dataItem['tt-embarcar-desc']);
 
     let vendedoresViejos : Array<any> = await this.cargarAnteriores(this.cliente,this.embarcar);
 
@@ -112,12 +112,12 @@ export class AutorizacionCambioComponent implements OnInit {
 
   notificarAutorizacion = async () => {
     let correo = await firstValueFrom(this._notificacion.obtenerCorreoxUsuario(this.usuario));
-    await firstValueFrom(this._notificacion.enviarCorreo(correo.mail,"Solicitud Cambio de Vendedor Aprobada","Cambio de Vendedor <h3 style='color:green'>Aprobado</h3> para el Cliente: " + this.cliente.cliente + " Y embarcar a: " + this.embarcar.codigo,"Para mas detalle puede validar la informacion de este correo en sistema"));
+    await firstValueFrom(this._notificacion.enviarCorreo(correo.mail,"Solicitud Cambio de Vendedor Aprobada","Cambio de Vendedor <h3 style='color:green'>Aprobado</h3> para el Cliente: " + this.cliente.nombre + " Y embarcar a: " + this.embarcar.descripcion,"Para mas detalle puede validar la informacion de este correo en sistema"));
   }
 
   notificarRechazo = async () => {
     let correo = await firstValueFrom(this._notificacion.obtenerCorreoxUsuario(this.usuario));
-    await firstValueFrom(this._notificacion.enviarCorreo(correo.mail,"Solicitud Cambio de Vendedor Rechazada","Cambio de Vendedor <h3 style='color:red'>Rechazado</h3> para el Cliente: " + this.cliente.cliente + " Y embarcar a: " + this.embarcar.codigo,"Para conocer los detalles del rechazo favor de hablar con el encargado del proceso"));
+    await firstValueFrom(this._notificacion.enviarCorreo(correo.mail,"Solicitud Cambio de Vendedor Rechazada","Cambio de Vendedor <h3 style='color:red'>Rechazado</h3> para el Cliente: " + this.cliente.nombre + " Y embarcar a: " + this.embarcar.descripcion,"Para conocer los detalles del rechazo favor de hablar con el encargado del proceso"));
   }
 
 }

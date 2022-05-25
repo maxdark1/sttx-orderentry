@@ -68,6 +68,10 @@ export class FrmVendedorComponent implements OnInit {
 
           this.subdir.codigo = subdir['tt-codigo'];
           this.subdir.nombre = subdir['tt-vendedor'];
+
+          this.inside_nuevo = {...this.inside};
+          this.vendedor_nuevo = {...this.vendedor};
+          this.subdir_nuevo = {...this.subdir}
         }
       },
       error: (e) => {
@@ -107,7 +111,7 @@ export class FrmVendedorComponent implements OnInit {
               let correos = await firstValueFrom(this._notificacion.obtenerCorreos('11', 'VTA_NOT', 'VTA_NOT'));
               let json = JSON.parse(correos.correos).root.users as Array<any>;
               let mails = json.map(x => x.Correo + ",").join().slice(0, -1);
-              await firstValueFrom(this._notificacion.enviarCorreo(mails, correos.titulo, correos.cuerpo + "<br> Cliente: " + this.cliente.cliente + " Embarcar: " + this.embarcar.codigo, correos.pie));
+              await firstValueFrom(this._notificacion.enviarCorreo(mails, correos.titulo, correos.cuerpo + "<br> Cliente: " + this.cliente.nombre + " Embarcar: " + this.embarcar.descripcion, correos.pie));
               this.limpiar();
             }
           },
