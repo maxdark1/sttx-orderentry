@@ -28,6 +28,7 @@ export class BusquedaVendedorComponent implements OnInit {
   public state: State;
   public skip = 0;
   @Output() oVendedor: EventEmitter<Vendedor>;
+  @Input() tipo_vendedor : string;
 
 
   constructor(private _vendedorService: VendedorService) {
@@ -56,6 +57,7 @@ export class BusquedaVendedorComponent implements OnInit {
           ttVendedoresRow.forEach(vendedor => {
             let tmp : Vendedor = new Vendedor(vendedor['tt-codigo'],vendedor['tt-vendedor']);
             this.vendedores.push(tmp);
+            this.vendedores = this.vendedores.filter(vendedor => vendedor.codigo.toUpperCase().startsWith(this.tipo_vendedor.toUpperCase()));
           });
           this.loadItems();
         } else {

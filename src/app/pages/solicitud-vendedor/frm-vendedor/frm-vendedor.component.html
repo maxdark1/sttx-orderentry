@@ -43,9 +43,9 @@
                 <b>
                     <h3>Vendedores Nuevos</h3>
                 </b>
-                <b>Inside Sales: </b> <app-busqueda-vendedor [vendedorSeleccionado] = "inside_nuevo.nombre" [instancia]="1" (oVendedor)="inside_nuevo = $event"></app-busqueda-vendedor>
-                <b>Gerente de Ventas: </b> <app-busqueda-vendedor [vendedorSeleccionado] = "vendedor_nuevo.nombre" [instancia]="2" (oVendedor)="vendedor_nuevo = $event"></app-busqueda-vendedor>
-                <b>Sub Director de Ventas: </b> <app-busqueda-vendedor [vendedorSeleccionado] = "subdir_nuevo.nombre" [instancia]="3" (oVendedor)="subdir_nuevo = $event"></app-busqueda-vendedor>
+                <b>Inside Sales: </b> <app-busqueda-vendedor [vendedorSeleccionado] = "inside_nuevo.nombre" [instancia]="1" [tipo_vendedor]="'i'" (oVendedor)="inside_nuevo = $event"></app-busqueda-vendedor>
+                <b>Gerente de Ventas: </b> <app-busqueda-vendedor [vendedorSeleccionado] = "vendedor_nuevo.nombre" [instancia]="2" [tipo_vendedor]="'v'" (oVendedor)="vendedor_nuevo = $event"></app-busqueda-vendedor>
+                <b>Sub Director de Ventas: </b> <app-busqueda-vendedor [vendedorSeleccionado] = "subdir_nuevo.nombre" [instancia]="3" [tipo_vendedor]="'v'" (oVendedor)="subdir_nuevo = $event"></app-busqueda-vendedor>
                 <br><br>
 
                 <button id="btnsolicitud" matSuffix mat-raised-button color="primary" [hidden]='!cargando' (click)="generarSolicitud()"> Solicitar Cambio </button>
