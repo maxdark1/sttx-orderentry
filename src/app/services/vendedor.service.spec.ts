@@ -10,6 +10,9 @@ import {Cliente} from '../models/cliente.model';
 import {Embarcar} from '../models/embarcar.model';
 import { User } from '../models/user.model';
 
+//ModelosMock
+import { generateManyVendedores } from '../models/vendedor.mock';
+
 //Ambiente
 import { environment } from '../../environments/environment';
 import { firstValueFrom } from 'rxjs';
@@ -40,45 +43,24 @@ fdescribe('Pruebas Servicio Vendedor', () => {
         expect(VendedorService).toBeTruthy();
     })
 
-    describe('Tests for Obtener Vendedores', () => {
-
+    describe('Tests for fn:obtenerVendedores', () => {
         it('should get all Sales Persons', (doneFn) => {
             //Arrange
-            const mockData : any = {
-                codigo : 200,
-                Mensaje: "Datos Obtenidos con exito",
-                datos: [
-                {
-                    codigo: 10,
-                    vendedor: 'Juan',
-                    tipo: 'inside'
-                },
-                {
-                    codigo: 11,
-                    vendedor: 'Richard',
-                    tipo: 'Vendedor'
-                }]
-            };
-
+            const mockData = {codigo: 200, ...generateManyVendedores(3)};
             let cliente = new Cliente('C0176','SETELLANTIS');
             let embarcar = new Embarcar('C0176001','STELLANTIS EMBARCAR A 1');
-
             _vendedor.obtenerVendedores(cliente,embarcar).subscribe({
                 next: (datos) => {
                     expect(datos.codigo).toBe(200);
                     expect(datos).toEqual(mockData);
-
                     doneFn();
                 }
             })
-
             let url = environment.apiurl + `/vendedores/vendedor.php?dominio=${user.dominio}&cliente=${cliente.cliente}&embarcar=${embarcar.codigo}`;
             const req = httpController.expectOne({method: 'GET',url});
             req.flush(mockData);
             httpController.verify(); 
- 
         });
-
     });    
 
 });
