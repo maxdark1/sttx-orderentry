@@ -21,8 +21,8 @@ export const AdminLayoutRoutes: Routes = [
     { path: 'preorder-list', component: PreorderListComponent, canActivate: [PermisoGuard]},
     { path: 'deactivate', component: DeactivateComponent, canActivate: [PermisoGuard]},
     { path: 'reporte', component: ReporteComponent, canActivate: [PermisoGuard] },
-    { path: 'solicitud-cambio', component: SolicitudVendedorComponent,/* canActivate: [PermisoGuard] */},
-    { path: 'aprobacion-cambio', component: AutorizacionCambioComponent, /*canActivate: [PermisoGuard] */},
+    { path: 'solicitud-cambio', component: SolicitudVendedorComponent, canActivate: [PermisoGuard] },
+    { path: 'aprobacion-cambio', component: AutorizacionCambioComponent, canActivate: [PermisoGuard]},
     { path: 'frm-vendedor', component: FrmVendedorComponent,/* canActivate: [PermisoGuard] */},
     { path: '**', component: nopathComponent }, 
 ];
