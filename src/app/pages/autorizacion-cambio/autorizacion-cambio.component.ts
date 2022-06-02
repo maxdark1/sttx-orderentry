@@ -39,7 +39,6 @@ export class AutorizacionCambioComponent implements OnInit {
 
     obtenerPendientes(){
         this.pendientes = new Array<any>();
-
         this._vendedor.obtenerListaPendientes(0,0).subscribe({
             next : (response) => {
                 if(response.oCode == 200){
@@ -55,7 +54,7 @@ export class AutorizacionCambioComponent implements OnInit {
                 console.error('Ocurrio un error al Consumir el Web Service [wsgetspreq] ' + e);
                 swal.fire('Ups!', 'Ocurrio un error al Consumir el Web Service [wsgetspreq]', 'error');
             }
-        }).unsubscribe();
+        });
 
     }
 
