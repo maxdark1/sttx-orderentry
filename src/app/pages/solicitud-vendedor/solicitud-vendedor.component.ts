@@ -32,7 +32,7 @@ export class SolicitudVendedorComponent implements OnInit {
         }
       },
       error: (e) => {
-        console.error("Ocurrio un error al Consumir el Web Service [wsgetspreq] " + e);
+        console.error("Ocurrio un error al Consumir el Web Service [wsgetspreq] " + e.message);
         swal.fire('Ups!', 'Ocurrio un error al Consumir el Web Service [wsgetspreq]', 'error');
       }
     });
