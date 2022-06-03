@@ -48,6 +48,9 @@ export class AutorizacionCambioComponent implements OnInit {
                     } else{
                         this.pendientes.push(response.ttSalesreq.ttSalesreqRow);
                     }
+                    this.pendientes = this.pendientes.map(registro => {
+                        return {...registro, 'tt-fecha' : new Date (registro['tt-fecha'])};
+                    });
                 }
             },
             error: (e) => {

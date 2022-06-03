@@ -1,5 +1,5 @@
 <form class="busquedaParte">
-      <button matSuffix mat-raised-button color="primary" data-toggle="modal" [attr.data-target]="'#frmparte'+ instancia" [disabled]="aprobada" (click)="obtenerPartes()">Añadir Parte</button>
+      <button matSuffix mat-raised-button type="button" color="primary" data-toggle="modal" [attr.data-target]="'#frmparte'+ instancia" [disabled]="aprobada" (click)="obtenerPartes()">Añadir Parte</button>
 </form>
 
 <div [attr.id]="'frmparte'+ instancia" class="modal fade" role="dialog">
