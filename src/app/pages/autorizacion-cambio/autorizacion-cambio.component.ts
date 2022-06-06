@@ -121,7 +121,7 @@ export class AutorizacionCambioComponent implements OnInit {
             const correo = await firstValueFrom(this._notificacion.obtenerCorreoxUsuario(this.usuario));
             await firstValueFrom(this._notificacion.enviarCorreo(correo.mail,'Solicitud Cambio de Vendedor Aprobada','Cambio de Vendedor <h3 style=\'color:green\'>Aprobado</h3> para el Cliente: ' + this.cliente.nombre + ' Y embarcar a: ' + this.embarcar.descripcion,'Para mas detalle puede validar la informacion de este correo en sistema'));
         } catch(e) {
-            console.error('Ocurrio un error al Consumir el Web Service [wsnotaprob]', e);
+            console.error('Ocurrio un error al Consumir el Web Service [wsnotaprob]', e.message);
             swal.fire('Ups!', 'Ocurrio un error al Consumir el Web Service [wsnotaprob]', 'error');
         }
 
